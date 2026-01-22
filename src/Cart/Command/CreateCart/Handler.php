@@ -12,14 +12,13 @@ class Handler
 {
     public function __construct(private readonly CartRepository $carts)
     {
-
     }
     public function handle(Command $command): Response
     {
         $cart = $this->carts->find(new Id($command->id));
-        if(null !== $cart) {
+        if (null !== $cart) {
             return new Response($cart->getId()->getValue());
-        }else{
+        } else {
             new Cart(
                 $id = new Id(Uuid::uuid4()->toString()),
                 new \DateTimeImmutable(),
