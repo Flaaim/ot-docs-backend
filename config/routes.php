@@ -22,11 +22,6 @@ return static function (App $app): void {
             $group->post('/upload', Product\Upload\RequestAction::class);
         })->add(AuthMiddleware::class);
 
-        $group->group('/tickets', function (RouteCollectorProxy $group): void {
-            $group->post('/create', Ticket\CreateOrUpdate\RequestAction::class);
-            $group->post('/updateDetails', Ticket\UpdateDetails\RequestAction::class);
-        });
-
         $group->group('/auth', function (RouteCollectorProxy $group): void {
             $group->post('/login', GetToken\RequestAction::class);
         });

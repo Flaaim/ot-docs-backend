@@ -57,11 +57,9 @@ return [
             'metadata_dirs' => [
                 __DIR__ . '/../../src/Payment/Entity',
                 __DIR__ . '/../../src/Product/Entity',
-                __DIR__ . '/../../src/Ticket/Entity',
             ],
             'types' => [
                 App\Shared\Domain\ValueObject\IdType::NAME => App\Shared\Domain\ValueObject\IdType::class,
-                App\Shared\Domain\ValueObject\UpdatedAtType::NAME => App\Shared\Domain\ValueObject\UpdatedAtType::class,
 
 
                 App\Product\Entity\PriceType::NAME => App\Product\Entity\PriceType::class,
@@ -71,8 +69,6 @@ return [
                 App\Payment\Entity\EmailType::NAME => App\Payment\Entity\EmailType::class,
                 App\Payment\Entity\StatusType::NAME => App\Payment\Entity\StatusType::class,
 
-                /** TICKET */
-                App\Ticket\Entity\TicketStatusType::NAME => App\Ticket\Entity\TicketStatusType::class,
             ]
         ]
     ],

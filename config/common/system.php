@@ -11,8 +11,6 @@ return [
         'login' => getenv('AUTH_LOGIN'),
         'password' => getenv('AUTH_PASSWORD'),
         'template_paths' => __DIR__ . '/../../public/templates',
-        'basePath' => __DIR__ . '/../../public/QuestionImages',
-        'urlPath' => 'http://localhost/QuestionImages',
     ],
     TemplatePath::class => function (ContainerInterface $container) {
         return new TemplatePath(
