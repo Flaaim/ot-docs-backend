@@ -6,6 +6,7 @@ test: unit-test functional-test app-fixtures
 test-unit: unit-test
 test-functional: functional-test app-fixtures
 lint:app-lint
+analyze: app-analyze
 
 app-init:app-permission composer-install app-wait-for-db app-migrations app-fixtures
 
@@ -51,6 +52,9 @@ app-lint-fix:
 
 app-migrations:
 	docker-compose run --rm php-cli composer app migrations:migrate -- --no-interaction
+
+app-analyze:
+	docker-compose run --rm php-cli composer psalm
 
 app-fixtures:
 	docker-compose run --rm php-cli composer app fixtures:load

@@ -36,7 +36,8 @@
     "test": "phpunit --display-warnings",
     "lint": "phplint",
     "cs-check": "phpcs",
-    "cs-fix": "phpcbf"
+    "cs-fix": "phpcbf",
+    "psalm": "psalm"
   },
   "require-dev": {
     "phpunit/phpunit": "^10.5",
