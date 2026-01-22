@@ -16,6 +16,7 @@
             <directory suffix="Test.php">src/Shared/Test</directory>
             <directory suffix="Test.php">src/Product/Test</directory>
             <directory suffix="Test.php">src/Http/Test</directory>
+            <directory suffix="Test.php">src/Cart/Test</directory>
         </testsuite>
         <testsuite name="Functional">
             <directory suffix="Test.php">tests</directory>
