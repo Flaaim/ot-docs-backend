@@ -10,11 +10,11 @@ use GuzzleHttp\Client;
 class ImageDownloader
 {
     public function __construct(
-        private readonly PathManager     $manager,
-        private readonly Client          $client,
+        private readonly PathManager $manager,
+        private readonly Client $client,
         private readonly DownloadChecker $checker
-    )
-    {}
+    ) {
+    }
 
     public function download(Ticket $ticket): array
     {
@@ -22,9 +22,9 @@ class ImageDownloader
         $this->manager->forTicket($ticket->getId()->getValue())->create();
         foreach ($ticket->getQuestions() as $question) {
                 /** @var Question $question */
-                if (!$this->shouldDownloadQuestionImage($question)) {
-                    continue;
-                }
+            if (!$this->shouldDownloadQuestionImage($question)) {
+                continue;
+            }
 
                 $this->manager
                     ->forQuestion($question->getId())
@@ -32,19 +32,19 @@ class ImageDownloader
 
                 $questionImagePath = $this->manager->getImagePath($question->getQuestionMainImg());
                 $results['questions'][] = $this->downloadQuestionImage($question, $questionImagePath);
-                foreach ($question->getAnswers() as $answer) {
-                    /** @var Answer $answer */
-                    if(!$this->shouldDownloadAnswerImage($answer)) {
-                        continue;
-                    }
-
-                    $this->manager->forAnswer($answer->getId()->getValue())
-                        ->create();
-
-                    $answerImagePath = $this->manager->getImagePath($answer->getImg());
-
-                    $results['answers'][] = $this->downloadAnswerImage($answer, $answerImagePath);
+            foreach ($question->getAnswers() as $answer) {
+                /** @var Answer $answer */
+                if (!$this->shouldDownloadAnswerImage($answer)) {
+                    continue;
                 }
+
+                $this->manager->forAnswer($answer->getId()->getValue())
+                    ->create();
+
+                $answerImagePath = $this->manager->getImagePath($answer->getImg());
+
+                $results['answers'][] = $this->downloadAnswerImage($answer, $answerImagePath);
+            }
                 sleep(1);
         }
         return $results;
@@ -75,7 +75,6 @@ class ImageDownloader
                 'status' => 'success',
                 'path' => $imagePath,
             ];
-
         } catch (\Exception $e) {
             return [
                 'question_id' => $question->getId(),
@@ -101,7 +100,6 @@ class ImageDownloader
                 'status' => 'success',
                 'path' => $imagePath,
             ];
-
         } catch (\Exception $e) {
             return [
                 'answer_id' => $answer->getId(),

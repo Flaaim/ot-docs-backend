@@ -2,13 +2,12 @@
 
 namespace Test\Functional;
 
-
-
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 class NotFoundTest extends WebTestCase
 {
     use ArraySubsetAsserts;
+
     public function testSuccess(): void
     {
         $response = $this->app()->handle(self::json('GET', '/asda'));

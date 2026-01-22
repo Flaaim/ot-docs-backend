@@ -46,7 +46,5 @@ class TemplateManagerTest extends TestCase
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('Template files not exists');
         $manager->getTemplate();
-
     }
-
 }

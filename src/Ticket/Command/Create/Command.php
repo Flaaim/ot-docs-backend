@@ -36,6 +36,6 @@ class Command
             ]
         )]
         public readonly array $ticket
-    )
-    {}
+    ) {
+    }
 }

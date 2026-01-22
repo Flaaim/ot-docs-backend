@@ -41,7 +41,7 @@ class PathManager
     }
     public function create(): void
     {
-        if(empty($this->ticketPath)) {
+        if (empty($this->ticketPath)) {
             throw new \DomainException('Call create() before forTicket');
         }
         if (!is_dir($this->currentPath)) {
@@ -66,10 +66,12 @@ class PathManager
         }
 
         $it = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
-        $files = new RecursiveIteratorIterator($it,
-            RecursiveIteratorIterator::CHILD_FIRST);
+        $files = new RecursiveIteratorIterator(
+            $it,
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
         foreach ($files as $file) {
-            if ($file->isDir()){
+            if ($file->isDir()) {
                 rmdir($file->getRealPath());
             } else {
                 unlink($file->getRealPath());
@@ -85,7 +87,7 @@ class PathManager
     }
     public function deleteQuestion(string $questionId): bool
     {
-        if(empty($this->ticketPath)) {
+        if (empty($this->ticketPath)) {
             throw new \DomainException('Call forTicket() first');
         }
         $path = $this->ticketPath . DIRECTORY_SEPARATOR . $questionId;
@@ -93,7 +95,7 @@ class PathManager
     }
     public function deleteAnswer(string $answerId): bool
     {
-        if(empty($this->questionPath)) {
+        if (empty($this->questionPath)) {
             throw new \DomainException('Call forQuestion() first');
         }
         $path = $this->questionPath . DIRECTORY_SEPARATOR . $answerId;

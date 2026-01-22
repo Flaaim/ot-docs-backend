@@ -8,9 +8,7 @@ class Handler
 {
     public function __construct(
         private readonly PathConverter $pathConverter
-    )
-    {
-
+    ) {
     }
     public function handle(Command $command): void
     {
@@ -19,6 +17,5 @@ class Handler
         $this->pathConverter
             ->convertQuestionImages($ticket, $result['questions'])
             ->convertAnswerImages($ticket, $result['answers']);
-
     }
 }

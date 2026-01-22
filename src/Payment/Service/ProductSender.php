@@ -14,7 +14,6 @@ use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\File;
 use Twig\Environment;
 
-
 class ProductSender
 {
     private MailerInterface $mailer;
@@ -47,12 +46,11 @@ class ProductSender
                 )
             )
         );
-        try{
+        try {
             $this->mailer->send($message);
         } catch (TransportExceptionInterface $e) {
             $this->logger->error('Failed to send mail: ', ['error' => $e->getMessage()]);
             throw new TransportException($e->getMessage());
         }
-
     }
 }

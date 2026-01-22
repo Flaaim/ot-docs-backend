@@ -23,7 +23,7 @@ class ProductDeliveryTest extends TestCase
 
         $delivery = new ProductDeliveryService($repository, $sender);
 
-        $paymentWebHookData->method('getMetadata')->willReturnCallback(fn(string $key) => match ($key){
+        $paymentWebHookData->method('getMetadata')->willReturnCallback(fn(string $key) => match ($key) {
             'productId' => 'da13a321-37ca-44c7-9434-42e9ae9a3043',
             'email' => 'test@example.com',
             default => null,

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 use App\Ticket\Service\ImageDownloader\PathManager;
 use App\Ticket\Service\ImageDownloader\UrlBuilder;
 

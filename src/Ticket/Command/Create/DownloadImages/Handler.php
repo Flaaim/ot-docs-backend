@@ -9,10 +9,10 @@ use App\Ticket\Command\Create\DownloadImages\CreatePath\Command as CreatePathCom
 class Handler
 {
     public function __construct(
-        private readonly CreatePathHandler   $createPathHandler,
-        private readonly ImageDownloader     $imageDownloader,
-    )
-    {}
+        private readonly CreatePathHandler $createPathHandler,
+        private readonly ImageDownloader $imageDownloader,
+    ) {
+    }
     public function handle(Command $command): array
     {
         $ticket = $command->ticket;

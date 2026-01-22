@@ -18,7 +18,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Twig\Environment;
 
 return [
-    HookPaymentHandler::class => function(ContainerInterface $c){
+    HookPaymentHandler::class => function (ContainerInterface $c) {
         $yookassaWebhookParser = new YookassaWebhookParser();
 
         $yookassaProvider = $c->get(YookassaProvider::class);
@@ -45,7 +45,6 @@ return [
             new Flusher($em),
             $sendProductHandler,
             $logger,
-
         );
     },
 ];

@@ -19,7 +19,7 @@ class Part
     #[ORM\OneToOne(targetEntity: Course::class, mappedBy: 'part')]
     private ?Course $course = null;
 
-    public function __construct(Id $id, String $name, String $description)
+    public function __construct(Id $id, string $name, string $description)
     {
         $this->id = $id;
         $this->name = $name;

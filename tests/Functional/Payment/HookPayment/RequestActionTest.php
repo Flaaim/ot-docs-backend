@@ -20,7 +20,9 @@ class RequestActionTest extends WebTestCase
     {
         $this->mailer()->clear();
 
-        $response = $this->app()->handle(self::json('POST', '/payment-service/payment-webhook',
+        $response = $this->app()->handle(self::json(
+            'POST',
+            '/payment-service/payment-webhook',
             $this->getRequestBody()
         ));
 

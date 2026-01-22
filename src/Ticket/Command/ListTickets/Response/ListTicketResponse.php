@@ -12,8 +12,8 @@ class ListTicketResponse implements \JsonSerializable
         public readonly int $currentPage,
         public readonly int $perPage,
         public readonly int $totalPages
-    )
-    {}
+    ) {
+    }
 
     public static function fromResult($result): self
     {
@@ -43,5 +43,4 @@ class ListTicketResponse implements \JsonSerializable
             'perPage' => $this->perPage,
         ];
     }
-
 }

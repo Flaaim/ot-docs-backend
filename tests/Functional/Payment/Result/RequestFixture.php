@@ -10,11 +10,10 @@ use Test\Functional\YookassaClient;
 
 class RequestFixture extends AbstractFixture
 {
-
     public function load(ObjectManager $manager): void
     {
         $paymentId = (new YookassaClient())->getLastPayment();
-        if($paymentId === null) {
+        if ($paymentId === null) {
             throw new \Exception('Payment id is null');
         }
 

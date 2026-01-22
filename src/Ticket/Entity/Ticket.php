@@ -67,14 +67,14 @@ class Ticket
     public static function fromArray(array $data): self
     {
         $ticket = new self(
-           new Id($data['id']),
-           $data['cipher'],
-           $data['name'],
-           UpdatedAt::create($data['updatedAt']),
+            new Id($data['id']),
+            $data['cipher'],
+            $data['name'],
+            UpdatedAt::create($data['updatedAt']),
         );
 
-        if(!empty($data['questions'])){
-            foreach ($data['questions'] as $questionData){
+        if (!empty($data['questions'])) {
+            foreach ($data['questions'] as $questionData) {
                 $question = Question::fromArray($questionData);
                 $ticket->addQuestions($question);
             }
@@ -84,13 +84,13 @@ class Ticket
     }
     public function setStatus(Status $newStatus): void
     {
-        if($this->status->getValue() !== $newStatus->getValue()){
+        if ($this->status->getValue() !== $newStatus->getValue()) {
             $this->status = $newStatus;
         }
     }
     public function setActive(): void
     {
-        if($this->status->getValue() === Status::active()->getValue()){
+        if ($this->status->getValue() === Status::active()->getValue()) {
             throw new DomainException('Cannot activate ticket with active status');
         }
         $this->status = Status::active();
@@ -103,9 +103,9 @@ class Ticket
     }
     public function updateQuestionImagesUrl(string $questionId, string $newUrl): void
     {
-        foreach ($this->questions->toArray() as $question){
+        foreach ($this->questions->toArray() as $question) {
             /** @var Question $question */
-            if($question->getId() === $questionId){
+            if ($question->getId() === $questionId) {
                 /** @var Question $question */
                 $question->setQuestionMainImg($newUrl);
                 return;
@@ -116,10 +116,10 @@ class Ticket
     public function updateAnswerImagesUrl(string $answerId, string $newUrl): void
     {
         /** @var Question $question */
-        foreach ($this->questions->toArray() as $question){
+        foreach ($this->questions->toArray() as $question) {
             /** @var Answer $answer */
-            foreach ($question->getAnswers()->toArray() as $answer){
-                if($answer->getId()->getValue() === $answerId){
+            foreach ($question->getAnswers()->toArray() as $answer) {
+                if ($answer->getId()->getValue() === $answerId) {
                     $answer->setAnswerImg($newUrl);
                     return;
                 }
@@ -141,11 +141,11 @@ class Ticket
     }
     public function setCourse(?Course $course): self
     {
-        if($course === null && $this->course !== null){
+        if ($course === null && $this->course !== null) {
             $this->course->setTicket(null);
         }
 
-        if($course !== null && $course->getTicket() !== $this){
+        if ($course !== null && $course->getTicket() !== $this) {
             $course->setTicket($this);
         }
         $this->course = $course;
@@ -153,13 +153,13 @@ class Ticket
     }
     public function updateDetails(?string $name, ?string $cipher, ?string $updatedAt): void
     {
-        if($name !== null){
+        if ($name !== null) {
             $this->name = $name;
         }
-        if($cipher !== null){
+        if ($cipher !== null) {
             $this->cipher = $cipher;
         }
-        if($updatedAt !== null){
+        if ($updatedAt !== null) {
             $this->updatedAt = UpdatedAt::create($updatedAt)->getValue();
         }
     }

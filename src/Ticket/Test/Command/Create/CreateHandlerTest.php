@@ -123,7 +123,7 @@ class CreateHandlerTest extends TestCase
     }
     private function getResultDownload(): array
     {
-       return  [
+        return  [
           'questions' => [
               [
                   'question_id' => '67e194bd-2526-40c7-9eac-6e64e99419f4',
@@ -165,5 +165,4 @@ class CreateHandlerTest extends TestCase
            ]
         ];
     }
-
 }

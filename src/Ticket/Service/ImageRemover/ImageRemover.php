@@ -10,8 +10,8 @@ class ImageRemover
     public function __construct(
         private readonly Ticket $ticket,
         private readonly PathManager $manager
-    )
-    {}
+    ) {
+    }
 
     public function delete(): void
     {

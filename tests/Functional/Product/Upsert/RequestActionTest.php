@@ -7,7 +7,6 @@ use Test\Functional\WebTestCase;
 
 class RequestActionTest extends WebTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();
@@ -18,7 +17,7 @@ class RequestActionTest extends WebTestCase
 
     public function testAddProduct(): void
     {
-        $response = $this->app()->handle(self::json('POST','/payment-service/products/upsert', [
+        $response = $this->app()->handle(self::json('POST', '/payment-service/products/upsert', [
             'name' => 'ПИ 1792.9 Итоговое тестирование по Программе IIП',
             'cipher' => 'ПИ 1792.9',
             'amount' => 500.00,
@@ -35,7 +34,7 @@ class RequestActionTest extends WebTestCase
 
     public function testUpdateProduct(): void
     {
-        $response = $this->app()->handle(self::json('POST','/payment-service/products/upsert', [
+        $response = $this->app()->handle(self::json('POST', '/payment-service/products/upsert', [
             'name' => 'ПИ 1791.11 Итоговое тестирование по Программе IП',
             'cipher' => 'ПИ 1791.11',
             'amount' => 500.00,
@@ -52,7 +51,7 @@ class RequestActionTest extends WebTestCase
     }
     public function testEmpty(): void
     {
-        $response = $this->app()->handle(self::json('POST','/payment-service/products/upsert', []));
+        $response = $this->app()->handle(self::json('POST', '/payment-service/products/upsert', []));
 
         self::assertEquals(422, $response->getStatusCode());
         self::assertJson($body = (string)$response->getBody());
@@ -68,6 +67,5 @@ class RequestActionTest extends WebTestCase
                 'course' => 'This value should not be blank.',
             ]
         ], $data);
-
     }
 }

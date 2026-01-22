@@ -2,8 +2,6 @@
 
 namespace App\Command;
 
-
-
 use App\Payment\Entity\Email;
 use App\Payment\Service\ProductSender;
 use App\Product\Entity\Currency;
@@ -19,7 +17,6 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Twig\Environment;
 
-
 class ProductSendCommand extends Command
 {
     public function configure(): void
@@ -30,31 +27,29 @@ class ProductSendCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        try{
+        try {
+            $container = require __DIR__ . '/../../config/container.php';
 
-        $container = require __DIR__ . '/../../config/container.php';
-
-        $productSender = new ProductSender(
-            $container->get(MailerInterface::class),
-            new TemplatePath(sys_get_temp_dir()),
-            $container->get(Environment::class),
-        );
-        $tempFile = tempnam(sys_get_temp_dir(), 'template');
-        $productSender->send(
-            new Email('test@app.ru'),
-            new Product(
-                Id::generate(),
-                'Образцы документов СИЗ',
-                new Price(450.00, new Currency('RUB')),
-                new File(basename($tempFile)),
-                '1'
-            )
-        );
+            $productSender = new ProductSender(
+                $container->get(MailerInterface::class),
+                new TemplatePath(sys_get_temp_dir()),
+                $container->get(Environment::class),
+            );
+            $tempFile = tempnam(sys_get_temp_dir(), 'template');
+            $productSender->send(
+                new Email('test@app.ru'),
+                new Product(
+                    Id::generate(),
+                    'Образцы документов СИЗ',
+                    new Price(450.00, new Currency('RUB')),
+                    new File(basename($tempFile)),
+                    '1'
+                )
+            );
             return self::SUCCESS;
-        }catch (TransportExceptionInterface $e) {
+        } catch (TransportExceptionInterface $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
             return self::FAILURE;
         }
-
     }
 }

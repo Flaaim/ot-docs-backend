@@ -61,8 +61,8 @@ final class Question
             $data['text'],
             $data['image'],
         );
-        if(!empty($data['answers'])){
-            foreach ($data['answers'] as $answerData){
+        if (!empty($data['answers'])) {
+            foreach ($data['answers'] as $answerData) {
                 $answer = Answer::fromArray($answerData);
                 $question->addAnswers($answer);
             }
@@ -82,7 +82,7 @@ final class Question
     }
     public function setQuestionMainImg(string $questionMainImg): void
     {
-        if($this->getQuestionMainImg() !== $questionMainImg){
+        if ($this->getQuestionMainImg() !== $questionMainImg) {
             $this->questionMainImg = $questionMainImg;
         }
     }

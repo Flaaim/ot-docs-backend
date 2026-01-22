@@ -11,21 +11,21 @@ class TicketRepository
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly EntityRepository $repo
-    )
-    {}
+    ) {
+    }
     public function addOrUpdate(Ticket $ticket): void
     {
         $existing = $this->findExisting($ticket);
-        if($existing) {
+        if ($existing) {
             $existing->updateFrom($ticket);
-        }else{
+        } else {
             $this->em->persist($ticket);
         }
     }
     public function getById(Id $id): Ticket
     {
         $ticket = $this->repo->find($id);
-        if(!$ticket) {
+        if (!$ticket) {
             throw new \DomainException('Ticket not found.');
         }
         return $ticket;

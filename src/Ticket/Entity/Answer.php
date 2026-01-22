@@ -55,13 +55,13 @@ final class Answer
     }
     public function setQuestion(Question $question): self
     {
-       $this->question = $question;
-       return $this;
+        $this->question = $question;
+        return $this;
     }
 
     public function setAnswerImg(string $newUrl): void
     {
-        if($this->getImg() !== $newUrl){
+        if ($this->getImg() !== $newUrl) {
             $this->img = $newUrl;
         }
     }

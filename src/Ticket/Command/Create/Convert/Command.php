@@ -10,8 +10,7 @@ class Command
     public function __construct(
         public readonly Ticket $ticket,
         public readonly array $result
-    )
-    {
+    ) {
         Assert::notEmpty($this->result);
     }
 }

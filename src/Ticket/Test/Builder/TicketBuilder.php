@@ -12,10 +12,10 @@ use Doctrine\Common\Collections\Collection;
 
 class TicketBuilder
 {
-    private  Id $id;
-    private  string $name;
-    private  string $cipher;
-    private  Status $status;
+    private Id $id;
+    private string $name;
+    private string $cipher;
+    private Status $status;
     private Collection $questions;
     private string $updatedAt;
 
@@ -67,18 +67,17 @@ class TicketBuilder
             'updatedAt' => $this->updatedAt,
         ]);
 
-        if(!$this->questions->isEmpty()) {
+        if (!$this->questions->isEmpty()) {
             foreach ($this->questions as $questionData) {
                 $question = Question::fromArray($questionData);
                 $ticket->addQuestions($question);
             }
         }
 
-        if($this->status === Status::active()) {
+        if ($this->status === Status::active()) {
             $ticket->setActive();
         }
 
         return $ticket;
     }
-
 }

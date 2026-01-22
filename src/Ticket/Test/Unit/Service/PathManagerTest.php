@@ -5,7 +5,6 @@ namespace App\Ticket\Test\Unit\Service;
 use App\Ticket\Service\ImageDownloader\PathManager;
 use PHPUnit\Framework\TestCase;
 
-
 class PathManagerTest extends TestCase
 {
     public function testBuildPathToTicket(): void
@@ -13,7 +12,7 @@ class PathManagerTest extends TestCase
         (new PathManager(sys_get_temp_dir()))
             ->forTicket('1234')
             ->create();
-        $this->assertDirectoryExists(sys_get_temp_dir(). DIRECTORY_SEPARATOR . '1234');
+        $this->assertDirectoryExists(sys_get_temp_dir() . DIRECTORY_SEPARATOR . '1234');
     }
     public function testWrongOrderQuestion(): void
     {
@@ -46,7 +45,7 @@ class PathManagerTest extends TestCase
         $builder->create();
 
         $questions = ['1', '2'];
-        $expectedPath = sys_get_temp_dir(). DIRECTORY_SEPARATOR . '1234';
+        $expectedPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . '1234';
         foreach ($questions as $question) {
             $builder->forQuestion($question)->create();
             $this->assertDirectoryExists($expectedPath . DIRECTORY_SEPARATOR . $question);
@@ -64,13 +63,12 @@ class PathManagerTest extends TestCase
             $builder->forQuestion($question['id'])->create();
             $expectedPath = '/tmp/1234' . DIRECTORY_SEPARATOR . $question['id'];
             $this->assertDirectoryExists($expectedPath);
-                foreach ($question['answers'] as $answer) {
-                    $builder->forAnswer($answer['id'])->create();
-                    $expectedPath = '/tmp/1234/'. $question['id'] .'/'. $answer['id'];
-                    $this->assertDirectoryExists($expectedPath);
-                }
+            foreach ($question['answers'] as $answer) {
+                $builder->forAnswer($answer['id'])->create();
+                $expectedPath = '/tmp/1234/' . $question['id'] . '/' . $answer['id'];
+                $this->assertDirectoryExists($expectedPath);
+            }
         }
-
     }
     public function testGetPath(): void
     {

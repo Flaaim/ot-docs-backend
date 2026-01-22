@@ -8,7 +8,6 @@ use Test\Functional\Payment\ProductBuilder;
 
 class RequestFixture extends AbstractFixture
 {
-
     public function load(ObjectManager $manager): void
     {
         $product = (new ProductBuilder())->build();

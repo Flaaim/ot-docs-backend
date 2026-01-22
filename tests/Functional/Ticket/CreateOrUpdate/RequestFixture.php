@@ -10,14 +10,13 @@ use Doctrine\Persistence\ObjectManager;
 
 class RequestFixture extends AbstractFixture
 {
-
     public function load(ObjectManager $manager): void
     {
         $ticket = (new TicketBuilder())
             ->withId(new Id('8c68fbe7-c32d-4bec-a094-fd5d9773ca35'))
             ->withQuestions(
-            (new QuestionCollectionBuilder())->withImages()
-        )->build();
+                (new QuestionCollectionBuilder())->withImages()
+            )->build();
 
         $manager->persist($ticket);
 

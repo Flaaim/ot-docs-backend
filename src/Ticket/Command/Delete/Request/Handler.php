@@ -17,8 +17,8 @@ class Handler
         private readonly Flusher $flusher,
         private readonly PathManager $pathManager,
         private readonly TransactionManager $transactionManager,
-    )
-    {}
+    ) {
+    }
 
 
     public function handle(Command $command): Response

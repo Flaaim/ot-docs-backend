@@ -19,8 +19,6 @@ class CreatePathHandler extends TestCase
         );
         $handler = new Handler(new PathManager(sys_get_temp_dir()));
         $handler->handle($command);
-        self::assertDirectoryExists(sys_get_temp_dir(). DIRECTORY_SEPARATOR . $id);
+        self::assertDirectoryExists(sys_get_temp_dir() . DIRECTORY_SEPARATOR . $id);
     }
-
-
 }

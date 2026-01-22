@@ -8,7 +8,8 @@ use App\Ticket\Entity\TicketRepository;
 class Handler
 {
     public function __construct(private readonly TicketRepository $tickets)
-    {}
+    {
+    }
     public function handle(Command $command): ListTicketResponse
     {
         $result = $this->tickets->findAllPaginated(
@@ -20,6 +21,5 @@ class Handler
         );
 
         return ListTicketResponse::fromResult($result);
-
     }
 }

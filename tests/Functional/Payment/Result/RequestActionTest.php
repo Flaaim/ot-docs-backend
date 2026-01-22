@@ -2,7 +2,6 @@
 
 namespace Test\Functional\Payment\Result;
 
-
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use Test\Functional\Json;
 use Test\Functional\Payment\PaymentBuilder;
@@ -53,7 +52,6 @@ class RequestActionTest extends WebTestCase
                 'returnToken' => 'This value should not be blank.',
             ]
         ], $data);
-
     }
 
     public function testInvalid(): void
@@ -89,5 +87,4 @@ class RequestActionTest extends WebTestCase
            'message' => 'Token is expired.',
         ], $data);
     }
-
 }

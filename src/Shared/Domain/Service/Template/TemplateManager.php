@@ -4,14 +4,13 @@ namespace App\Shared\Domain\Service\Template;
 
 use App\Product\Entity\File;
 
-
 class TemplateManager
 {
     private string $templateFile;
     public function __construct(
         private readonly TemplatePath $templatePath,
-        private readonly File $file)
-    {
+        private readonly File $file
+    ) {
         $this->templateFile =
             rtrim($this->templatePath->getValue(), '/') .
             DIRECTORY_SEPARATOR .
@@ -30,5 +29,4 @@ class TemplateManager
         }
         return $this->templateFile;
     }
-
 }

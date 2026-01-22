@@ -52,10 +52,10 @@ class Course
 
     public function setPart(?Part $part): self
     {
-        if($part === null && $this->part !== null){
+        if ($part === null && $this->part !== null) {
             $this->part->setCourse(null);
         }
-        if($part !== null && $part->getCourse() !== $this){
+        if ($part !== null && $part->getCourse() !== $this) {
             $part->setCourse($this);
         }
         $this->part = $part;

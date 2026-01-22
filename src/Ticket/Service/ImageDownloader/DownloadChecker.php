@@ -13,7 +13,7 @@ class DownloadChecker
         $flag = false;
         foreach ($ticket->getQuestions() as $question) {
             /** @var Question $question */
-            if($this->shouldDownloadQuestionImage($question)) {
+            if ($this->shouldDownloadQuestionImage($question)) {
                 $flag = true;
             }
         }
@@ -21,8 +21,10 @@ class DownloadChecker
     }
     public function shouldDownloadQuestionImage(Question $question): bool
     {
-        if (!empty($question->getQuestionMainImg()) &&
-            filter_var($question->getQuestionMainImg(), FILTER_VALIDATE_URL)) {
+        if (
+            !empty($question->getQuestionMainImg()) &&
+            filter_var($question->getQuestionMainImg(), FILTER_VALIDATE_URL)
+        ) {
             return true;
         }
 

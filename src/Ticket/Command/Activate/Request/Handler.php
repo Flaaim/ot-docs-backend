@@ -12,8 +12,8 @@ class Handler
     public function __construct(
         private readonly TicketRepository $tickets,
         private readonly Flusher $flusher
-    )
-    {}
+    ) {
+    }
     public function handle(Command $command): TicketResponse
     {
         $ticket = $this->tickets->getById(new Id($command->id));

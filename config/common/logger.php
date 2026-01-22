@@ -18,7 +18,7 @@ return [
 
         $log = new Logger('payment-service');
 
-        if(!empty($telegramConfig)){
+        if (!empty($telegramConfig)) {
             $log->pushHandler(new TelegramBotHandler(
                 $telegramConfig['token'],
                 $telegramConfig['chatId'],

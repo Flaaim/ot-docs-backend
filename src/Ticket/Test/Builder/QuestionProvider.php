@@ -46,7 +46,7 @@ class QuestionProvider
                     "image" => "http://olimpoks.chukk.ru:82/QuestionImages/81703c22-7f8e-4a37-9591-e0d59f4fc093/8/2.jpg"
                 ]
             ],
-        ];
+         ];
     }
     private function withoutImages(): array
     {

@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 class ImageDownloadTest extends TestCase
 {
     use ArraySubsetAsserts;
+
     public function testSuccess(): void
     {
         $ticket = (new TicketBuilder())->withQuestions(

@@ -6,7 +6,8 @@ use Webmozart\Assert\Assert;
 
 class Command
 {
-    public function __construct(public readonly string $ticketId){
+    public function __construct(public readonly string $ticketId)
+    {
         Assert::notEmpty($this->ticketId);
     }
 }

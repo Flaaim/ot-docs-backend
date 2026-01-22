@@ -32,7 +32,6 @@ class DownloadCheckerTest extends TestCase
         $question = Question::fromArray((new QuestionProvider())->toArrayWithoutImages());
 
         $this->assertFalse($checker->shouldDownloadQuestionImage($question));
-
     }
 
     public function testShouldDownloadAnswerTrue(): void
@@ -64,5 +63,4 @@ class DownloadCheckerTest extends TestCase
 
         $this->assertTrue($downloadChecker->shouldDownload($ticket));
     }
-
 }

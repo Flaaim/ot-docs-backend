@@ -13,14 +13,14 @@ class ProductDeliveryService implements ProductDeliveryInterface
     public function __construct(
         private readonly ProductRepository $productRepository,
         private readonly ProductSender $sender
-    )
-    {}
+    ) {
+    }
     public function deliver(PaymentWebhookDataInterface $paymentWebHookData): void
     {
         $productId = $paymentWebHookData->getMetadata('productId');
         $email = $paymentWebHookData->getMetadata('email');
 
-        if(!$productId || !$email){
+        if (!$productId || !$email) {
             throw new \DomainException('Missing required metadata in webhook');
         }
         /** @var ProductSender $sender */

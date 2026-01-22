@@ -7,7 +7,6 @@ use Test\Functional\Json;
 use Test\Functional\WebTestCase;
 use Test\Functional\YookassaClient;
 
-
 class RequestActionTest extends WebTestCase
 {
     use ArraySubsetAsserts;
@@ -33,7 +32,7 @@ class RequestActionTest extends WebTestCase
         self::assertArraySubset([
             'amount' => 350,
             'currency' => 'RUB',
-        ],$data);
+        ], $data);
     }
     public function testEmpty(): void
     {
@@ -66,7 +65,6 @@ class RequestActionTest extends WebTestCase
         self::assertArraySubset([
             'message' => 'Product not found.',
         ], $data);
-
     }
 
     public function testInvalidEmail(): void
@@ -108,5 +106,4 @@ class RequestActionTest extends WebTestCase
             ]
         ], $data);
     }
-
 }

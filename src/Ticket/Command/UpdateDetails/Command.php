@@ -15,6 +15,6 @@ class Command
         #[Assert\Length(max: 50)]
         public readonly ?string $cipher = null,
         public readonly ?string $updatedAt = null,
-    ){
+    ) {
     }
 }

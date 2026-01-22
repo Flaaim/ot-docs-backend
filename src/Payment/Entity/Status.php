@@ -34,6 +34,4 @@ class Status
     {
         return new self('succeeded');
     }
-
-
 }

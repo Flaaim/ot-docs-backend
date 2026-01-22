@@ -7,7 +7,8 @@ use App\Ticket\Service\ImageDownloader\PathManager;
 class Handler
 {
     public function __construct(private readonly PathManager $pathManager)
-    {}
+    {
+    }
     public function handle(Command $command): void
     {
         $this->pathManager->forTicket(

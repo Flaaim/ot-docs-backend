@@ -9,8 +9,8 @@ class Response
         public string $mime_type,
         public int $size,
         public string $path,
-    )
-    {}
+    ) {
+    }
 
     public static function fromArray(array $array): Response
     {

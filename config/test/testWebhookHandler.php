@@ -20,7 +20,7 @@ use Test\Functional\Payment\TestPaymentProvider;
 use Twig\Environment;
 
 return [
-    HookPaymentHandler::class => function(ContainerInterface $c){
+    HookPaymentHandler::class => function (ContainerInterface $c) {
 
         $yookassaWebhookParser = new YookassaWebhookParser();
 
