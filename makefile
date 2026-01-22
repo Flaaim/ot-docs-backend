@@ -44,6 +44,10 @@ app-wait-for-db:
 
 app-lint:
 	docker-compose run --rm php-cli composer lint
+	docker-compose run --rm php-cli composer cs-check
+
+app-lint-fix:
+	docker-compose run --rm php-cli composer cs-fix
 
 app-migrations:
 	docker-compose run --rm php-cli composer app migrations:migrate -- --no-interaction
