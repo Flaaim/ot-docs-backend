@@ -6,6 +6,7 @@ use App\Product\Entity\Currency;
 use App\Shared\Domain\ValueObject\Id;
 use App\Shared\Domain\ValueObject\Price;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Cart
 {
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', cascade: ['persist'], orphanRemoval: true)]
-    private ArrayCollection $items;
+    private Collection $items;
     public function __construct(
         #[ORM\Id]
         #[ORM\Column(type: 'id', unique: true)]
