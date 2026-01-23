@@ -18,7 +18,7 @@ class CartAwareHandler
 
         if (null === $cart) {
             $cart = Cart::createEmpty();
-            $this->carts->upsert($cart);
+            $this->carts->create($cart);
         }
 
         return $cart;

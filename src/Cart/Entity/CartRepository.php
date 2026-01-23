@@ -2,11 +2,35 @@
 
 namespace App\Cart\Entity;
 
+use App\Product\Entity\Product;
 use App\Shared\Domain\ValueObject\Id;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
-interface CartRepository
+class CartRepository
 {
-    public function create(Cart $cart): void;
-    public function find(Id $id): ?Cart;
-    public function upsert(Cart $cart): void;
+    private EntityRepository $repo;
+    private EntityManagerInterface $em;
+    public function __construct(EntityManagerInterface $em)
+    {
+        $repo = $em->getRepository(Product::class);
+        $this->repo = $repo;
+        $this->em = $em;
+    }
+    public function find(Id $id): ?Cart
+    {
+        $cart = $this->repo->find($id);
+        if (null === $cart) {
+            return null;
+        }
+        return $cart;
+    }
+    public function update(Cart $cart): void
+    {
+        $this->em->persist($cart);
+    }
+    public function create(Cart $cart): void
+    {
+        $this->em->persist($cart);
+    }
 }
