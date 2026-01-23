@@ -2,7 +2,7 @@
 
 namespace App\Product\Test\Entity;
 
-use App\Product\Entity\File;
+use App\Shared\Domain\ValueObject\File;
 use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase

@@ -2,7 +2,9 @@
 
 namespace App\Product\Entity;
 
+use App\Shared\Domain\ValueObject\File;
 use App\Shared\Domain\ValueObject\Id;
+use App\Shared\Domain\ValueObject\Price;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]

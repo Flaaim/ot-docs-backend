@@ -2,9 +2,9 @@
 
 namespace App\Cart\Entity;
 
-use App\Product\Entity\File;
-use App\Product\Entity\Price;
+use App\Shared\Domain\ValueObject\File;
 use App\Shared\Domain\ValueObject\Id;
+use App\Shared\Domain\ValueObject\Price;
 
 class CartItem
 {

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Product\Entity;
+namespace App\Shared\Domain\ValueObject;
 
+use App\Product\Entity\Currency;
 use Webmozart\Assert\Assert;
 
 class Price

@@ -62,8 +62,8 @@ return [
                 App\Shared\Domain\ValueObject\IdType::NAME => App\Shared\Domain\ValueObject\IdType::class,
 
 
-                App\Product\Entity\PriceType::NAME => App\Product\Entity\PriceType::class,
-                App\Product\Entity\FileType::NAME => App\Product\Entity\FileType::class,
+                \App\Shared\Domain\ValueObject\PriceType::NAME => \App\Shared\Domain\ValueObject\PriceType::class,
+                \App\Shared\Domain\ValueObject\FileType::NAME => \App\Shared\Domain\ValueObject\FileType::class,
 
 
                 App\Payment\Entity\EmailType::NAME => App\Payment\Entity\EmailType::class,

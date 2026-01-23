@@ -1,25 +1,22 @@
 <?php
 
-namespace App\Product\Entity;
+namespace App\Shared\Domain\ValueObject;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
-class PriceType extends StringType
+class FileType extends StringType
 {
-    public const NAME = 'price';
+    public const NAME = 'file';
+
     public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
-        return $value instanceof Price ? $value->getValue() : $value;
+        return $value instanceof File ? $value->getPathToFile() : $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?Price
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?File
     {
-        return !empty($value) ? new Price((float)$value, new Currency('RUB')) : null;
-    }
-    public function getName(): string
-    {
-        return self::NAME;
+        return !empty($value) ? new File((string)$value) : null;
     }
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
@@ -28,5 +25,10 @@ class PriceType extends StringType
         $column['fixed'] = true; // CHAR вместо VARCHAR
 
         return $platform->getStringTypeDeclarationSQL($column);
+    }
+
+    public function getName(): string
+    {
+        return self::NAME;
     }
 }

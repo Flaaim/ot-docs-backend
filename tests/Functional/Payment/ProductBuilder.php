@@ -3,10 +3,10 @@
 namespace Test\Functional\Payment;
 
 use App\Product\Entity\Currency;
-use App\Product\Entity\File;
-use App\Product\Entity\Price;
 use App\Product\Entity\Product;
+use App\Shared\Domain\ValueObject\File;
 use App\Shared\Domain\ValueObject\Id;
+use App\Shared\Domain\ValueObject\Price;
 
 class ProductBuilder
 {

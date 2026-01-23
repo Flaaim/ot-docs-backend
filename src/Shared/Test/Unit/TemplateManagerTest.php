@@ -2,9 +2,9 @@
 
 namespace App\Shared\Test\Unit;
 
-use App\Product\Entity\File;
 use App\Shared\Domain\Service\Template\TemplateManager;
 use App\Shared\Domain\Service\Template\TemplatePath;
+use App\Shared\Domain\ValueObject\File;
 use PHPUnit\Framework\TestCase;
 
 class TemplateManagerTest extends TestCase

@@ -3,7 +3,7 @@
 namespace App\Product\Test\Entity;
 
 use App\Product\Entity\Currency;
-use App\Product\Entity\Price;
+use App\Shared\Domain\ValueObject\Price;
 use PHPUnit\Framework\TestCase;
 
 class PriceTest extends TestCase
