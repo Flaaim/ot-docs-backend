@@ -25,7 +25,7 @@ class CartTest extends TestCase
     {
         $cart = Cart::create();
         $item = (new CartItemBuilder())->build();
-        $item2 = (new CartItemBuilder())->withId(new Id(Uuid::uuid4()->toString()))->build();
+        $item2 = (new CartItemBuilder())->withId(Id::generate())->build();
 
         $cart->addItem($item);
         $cart->addItem($item2);
@@ -63,5 +63,28 @@ class CartTest extends TestCase
 
         $cart->removeItemByProductId($item1->getProductId());
         self::assertCount(0, $cart->getItems()->toArray());
+    }
+
+    public function testClearCart(): void
+    {
+        $cart = Cart::create();
+
+        $cart->addItem((new CartItemBuilder())->withId(Id::generate())->build());
+        $cart->addItem((new CartItemBuilder())->withId(Id::generate())->build());
+        $cart->addItem((new CartItemBuilder())->withId(Id::generate())->build());
+        $cart->addItem((new CartItemBuilder())->withId(Id::generate())->build());
+
+        self::assertCount(4, $cart->getItems()->toArray());
+        $cart->clear();
+        self::assertCount(0, $cart->getItems()->toArray());
+    }
+
+    public function testClearEmptyCart(): void
+    {
+        $cart = Cart::create();
+
+        self::expectException(\DomainException::class);
+        self::expectExceptionMessage('Cart is empty.');
+        $cart->clear();
     }
 }

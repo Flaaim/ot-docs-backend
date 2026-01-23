@@ -61,4 +61,12 @@ class Cart
         }
         throw new \DomainException('Product item does not exist in the cart.');
     }
+
+    public function clear(): void
+    {
+        if($this->items->isEmpty()) {
+            throw new \DomainException('Cart is empty.');
+        }
+        $this->items->clear();
+    }
 }
