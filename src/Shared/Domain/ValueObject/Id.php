@@ -2,6 +2,7 @@
 
 namespace App\Shared\Domain\ValueObject;
 
+use App\Cart\Entity\CartItem;
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;
 
@@ -21,7 +22,10 @@ class Id
     {
         return new self(Uuid::uuid4()->toString());
     }
-
+    public function equals(Id $id): bool
+    {
+        return $this->value === $id->getValue();
+    }
     public function __toString(): string
     {
         return $this->value;
