@@ -7,13 +7,21 @@ use App\Shared\Domain\ValueObject\Id;
 use App\Shared\Domain\ValueObject\Price;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'carts')]
 class Cart
 {
+    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', cascade: ['persist'], orphanRemoval: true)]
     private ArrayCollection $items;
     private function __construct(
+        #[ORM\Id]
+        #[ORM\Column(type: 'id', unique: true)]
         private Id $id,
+        #[ORM\Column(type:'datetime_immutable')]
         private \DateTimeImmutable $createdAt,
+        #[ORM\Column(type: 'boolean')]
         private bool $isPaid = false,
     ) {
         $this->items = new ArrayCollection();
@@ -51,6 +59,7 @@ class Cart
             }
         }
         $this->items->add($cartItem);
+        $cartItem->appendCart($this);
     }
     public function removeItemByProductId(Id $productId): void
     {

@@ -57,13 +57,13 @@ return [
             'metadata_dirs' => [
                 __DIR__ . '/../../src/Payment/Entity',
                 __DIR__ . '/../../src/Product/Entity',
+                __DIR__ . '/../../src/Cart/Entity',
             ],
             'types' => [
                 App\Shared\Domain\ValueObject\IdType::NAME => App\Shared\Domain\ValueObject\IdType::class,
+                App\Shared\Domain\ValueObject\PriceType::NAME => App\Shared\Domain\ValueObject\PriceType::class,
+                App\Shared\Domain\ValueObject\FileType::NAME => App\Shared\Domain\ValueObject\FileType::class,
 
-
-                \App\Shared\Domain\ValueObject\PriceType::NAME => \App\Shared\Domain\ValueObject\PriceType::class,
-                \App\Shared\Domain\ValueObject\FileType::NAME => \App\Shared\Domain\ValueObject\FileType::class,
 
 
                 App\Payment\Entity\EmailType::NAME => App\Payment\Entity\EmailType::class,
