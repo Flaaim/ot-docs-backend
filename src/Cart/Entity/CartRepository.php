@@ -8,4 +8,5 @@ interface CartRepository
 {
     public function create(Cart $cart): void;
     public function find(Id $id): ?Cart;
+    public function upsert(Cart $cart): void;
 }

@@ -4,13 +4,14 @@ namespace App\Cart\Entity;
 
 use App\Shared\Domain\ValueObject\Id;
 use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\Uuid;
 
 class Cart
 {
-    public function __construct(
+    private ArrayCollection $items;
+    private function __construct(
         private Id $id,
         private \DateTimeImmutable $createdAt,
-        private ArrayCollection $items,
         private bool $isPaid = false,
     ) {
         $this->items = new ArrayCollection();
@@ -31,5 +32,21 @@ class Cart
     public function isPaid(): bool
     {
         return $this->isPaid;
+    }
+    public static function create(): self
+    {
+        return new self(
+            new Id(Uuid::uuid4()->toString()),
+            new \DateTimeImmutable(),
+        );
+    }
+    public function addItem(CartItem $cartItem): void
+    {
+        foreach ($this->items as $item) {
+            if($item->equals($cartItem)) {
+                throw new \DomainException('Product item already exists.');
+            }
+        }
+        $this->items->add($cartItem);
     }
 }
