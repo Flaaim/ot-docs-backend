@@ -69,4 +69,8 @@ class Cart
         }
         $this->items->clear();
     }
+    public function markAsPaid(): void
+    {
+        $this->isPaid = true;
+    }
 }

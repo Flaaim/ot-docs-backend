@@ -87,4 +87,11 @@ class CartTest extends TestCase
         self::expectExceptionMessage('Cart is empty.');
         $cart->clear();
     }
+
+    public function testPaid(): void
+    {
+        $cart = Cart::create();
+        $cart->markAsPaid();
+        self::assertTrue($cart->isPaid());
+    }
 }
