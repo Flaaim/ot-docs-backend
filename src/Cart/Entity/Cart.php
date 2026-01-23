@@ -15,7 +15,7 @@ class Cart
 {
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', cascade: ['persist'], orphanRemoval: true)]
     private ArrayCollection $items;
-    private function __construct(
+    public function __construct(
         #[ORM\Id]
         #[ORM\Column(type: 'id', unique: true)]
         private Id $id,

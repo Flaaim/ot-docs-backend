@@ -38,7 +38,11 @@ class CartBuilder
 
     public function build(): Cart
     {
-        $cart = Cart::createEmpty();
+        $cart = new Cart(
+            $this->id,
+            $this->createdAt,
+            $this->isPaid,
+        );
 
         foreach ($this->items as $item) {
             $cart->addItem($item);
