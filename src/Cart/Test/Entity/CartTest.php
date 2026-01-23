@@ -26,8 +26,10 @@ class CartTest extends TestCase
         $cart = Cart::create();
         $item = (new CartItemBuilder())->build();
         $item2 = (new CartItemBuilder())->withId(new Id(Uuid::uuid4()->toString()))->build();
+
         $cart->addItem($item);
         $cart->addItem($item2);
+
         self::assertCount(2, $cart->getItems());
     }
     public function testExistingItem(): void
@@ -35,9 +37,31 @@ class CartTest extends TestCase
         $cart = Cart::create();
         $item = (new CartItemBuilder())->build();
         $cart->addItem($item);
+
         self::expectException(\DomainException::class);
         self::expectExceptionMessage('Product item already exists.');
-        $cart->addItem($item);
 
+        $cart->addItem($item);
+    }
+    public function testRemoveNotExistingItem(): void
+    {
+        $cart = Cart::create();
+        $cartItem = (new CartItemBuilder())->build();
+
+        self::expectException(\DomainException::class);
+        self::expectExceptionMessage('Product item does not exist in the cart.');
+
+        $cart->removeItemByProductId($cartItem->getProductId());
+    }
+    public function testRemoveItem(): void
+    {
+        $cart = Cart::create();
+        $item1 = (new CartItemBuilder())->build();
+
+        $cart->addItem($item1);
+        self::assertCount(1, $cart->getItems()->toArray());
+
+        $cart->removeItemByProductId($item1->getProductId());
+        self::assertCount(0, $cart->getItems()->toArray());
     }
 }

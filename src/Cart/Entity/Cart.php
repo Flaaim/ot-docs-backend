@@ -43,10 +43,22 @@ class Cart
     public function addItem(CartItem $cartItem): void
     {
         foreach ($this->items as $item) {
-            if($item->equals($cartItem)) {
+            /** @var CartItem $item */
+            if($item->getProductId()->equals($cartItem->getProductId())) {
                 throw new \DomainException('Product item already exists.');
             }
         }
         $this->items->add($cartItem);
+    }
+    public function removeItemByProductId(Id $productId): void
+    {
+        foreach ($this->items as $item) {
+            /** @var CartItem $item */
+            if($item->getProductId()->equals($productId)) {
+                $this->items->removeElement($item);
+                return;
+            }
+        }
+        throw new \DomainException('Product item does not exist in the cart.');
     }
 }

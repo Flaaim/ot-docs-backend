@@ -13,7 +13,7 @@ class CartItemTest extends TestCase
     {
         $cartItem = (new CartItemBuilder())->build();
 
-        self::assertEquals('e63290b2-33e9-4c90-918f-4b28ceb42ca0', $cartItem->getId()->getValue());
+        self::assertEquals('e63290b2-33e9-4c90-918f-4b28ceb42ca0', $cartItem->getProductId()->getValue());
         self::assertEquals(
             'Приказ о создании нештатного аварийно-спасательного формирования',
             $cartItem->getName()
@@ -26,12 +26,4 @@ class CartItemTest extends TestCase
         );
     }
 
-    public function testEquals(): void
-    {
-        $item = (new CartItemBuilder())->withId(new Id('79af9c9b-dc67-48dc-88b3-5f58cf06f393'))->build();
-        $item2 = (new CartItemBuilder())->withId(new Id('d2ca41e2-4e90-4b76-ac62-2d1b759a77ca'))->build();
-
-        self::assertTrue($item->equals($item));
-        self::assertFalse($item->equals($item2));
-    }
 }

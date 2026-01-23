@@ -18,7 +18,7 @@ class CartItem
     }
 
 
-    public function getId(): Id
+    public function getProductId(): Id
     {
         return $this->productId;
     }
@@ -37,9 +37,5 @@ class CartItem
     public function getFile(): File
     {
         return $this->file;
-    }
-    public function equals(CartItem $cartItem): bool
-    {
-        return $this->productId->getValue() === $cartItem->getId()->getValue();
     }
 }
