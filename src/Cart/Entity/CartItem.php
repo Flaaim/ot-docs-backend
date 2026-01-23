@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'cart_items')]
 class CartItem
 {
+    #[ORM\ManyToOne(targetEntity: Cart::class, inversedBy: 'cart_items')]
+    #[ORM\JoinColumn(name: 'cart_id', referencedColumnName: 'id', nullable: false)]
+    private Cart $cart;
     public function __construct(
         #[ORM\Id]
         #[ORM\Column(type: 'id', unique: true)]
@@ -23,9 +26,6 @@ class CartItem
         private string $cipher,
         #[ORM\Column(type: 'file')]
         private File $file,
-        #[ORM\ManyToOne(targetEntity: Cart::class, inversedBy: 'cart_items')]
-        #[ORM\JoinColumn(name: 'cart_id', referencedColumnName: 'id', nullable: false)]
-        private Cart $cart,
     ) {
     }
     public function getProductId(): Id
