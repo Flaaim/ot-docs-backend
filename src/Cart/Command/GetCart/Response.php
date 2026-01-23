@@ -11,6 +11,8 @@ class Response
         public string $cartId,
         public bool $isPaid,
         public array $items,
+        public float $totalPrice,
+        public int $count,
 
     )
     {
@@ -23,6 +25,8 @@ class Response
             $cart->getId()->getValue(),
             $cart->isPaid(),
             $cart->getItems()->toArray(),
+            $cart->getTotalPrice()->getValue(),
+            $cart->getItems()->count(),
         );
     }
 }

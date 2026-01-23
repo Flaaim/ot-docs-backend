@@ -35,7 +35,7 @@ class Cart
     {
         return $this->isPaid;
     }
-    public static function create(): self
+    public static function createEmpty(): self
     {
         return new self(
             new Id(Uuid::uuid4()->toString()),
