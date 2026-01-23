@@ -9,14 +9,13 @@ use App\Shared\Domain\ValueObject\Id;
 use App\Shared\Domain\ValueObject\Price;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
 #[CoversClass(Cart::class)]
 class CartTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $cart = Cart::create();
+        $cart = Cart::createEmpty();
         self::assertInstanceOf(Id::class, $cart->getId());
         self::assertInstanceOf(\DateTimeImmutable::class, $cart->getCreatedAt());
         self::assertEquals([], $cart->getItems()->toArray());
@@ -25,7 +24,7 @@ class CartTest extends TestCase
 
     public function testAddItem(): void
     {
-        $cart = Cart::create();
+        $cart = Cart::createEmpty();
         $item = (new CartItemBuilder())->build();
         $item2 = (new CartItemBuilder())->withId(Id::generate())->build();
 
@@ -36,7 +35,7 @@ class CartTest extends TestCase
     }
     public function testExistingItem(): void
     {
-        $cart = Cart::create();
+        $cart = Cart::createEmpty();
         $item = (new CartItemBuilder())->build();
         $cart->addItem($item);
 
@@ -47,7 +46,7 @@ class CartTest extends TestCase
     }
     public function testRemoveNotExistingItem(): void
     {
-        $cart = Cart::create();
+        $cart = Cart::createEmpty();
         $cartItem = (new CartItemBuilder())->build();
 
         self::expectException(\DomainException::class);
@@ -57,7 +56,7 @@ class CartTest extends TestCase
     }
     public function testRemoveItem(): void
     {
-        $cart = Cart::create();
+        $cart = Cart::createEmpty();
         $item1 = (new CartItemBuilder())->build();
 
         $cart->addItem($item1);
@@ -69,7 +68,7 @@ class CartTest extends TestCase
 
     public function testClearCart(): void
     {
-        $cart = Cart::create();
+        $cart = Cart::createEmpty();
 
         $cart->addItem((new CartItemBuilder())->withId(Id::generate())->build());
         $cart->addItem((new CartItemBuilder())->withId(Id::generate())->build());
@@ -83,7 +82,7 @@ class CartTest extends TestCase
 
     public function testClearEmptyCart(): void
     {
-        $cart = Cart::create();
+        $cart = Cart::createEmpty();
 
         self::expectException(\DomainException::class);
         self::expectExceptionMessage('Cart is empty.');
@@ -92,14 +91,14 @@ class CartTest extends TestCase
 
     public function testPaid(): void
     {
-        $cart = Cart::create();
+        $cart = Cart::createEmpty();
         $cart->markAsPaid();
         self::assertTrue($cart->isPaid());
     }
 
     public function testGetTotalPrice(): void
     {
-        $cart = Cart::create();
+        $cart = Cart::createEmpty();
 
         $item1 = (new CartItemBuilder())
             ->withId(Id::generate())
