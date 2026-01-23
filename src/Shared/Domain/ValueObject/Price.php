@@ -11,7 +11,7 @@ class Price
     private Currency $currency;
     public function __construct(float $value, Currency $currency)
     {
-        Assert::greaterThan($value, 0);
+        Assert::greaterThanEq($value, 0);
         $this->value = round($value, 2);
         $this->currency = $currency;
     }

@@ -4,7 +4,9 @@ namespace App\Cart\Test\Entity;
 
 use App\Cart\Entity\Cart;
 use App\Cart\Test\Builder\CartItemBuilder;
+use App\Product\Entity\Currency;
 use App\Shared\Domain\ValueObject\Id;
+use App\Shared\Domain\ValueObject\Price;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -93,5 +95,30 @@ class CartTest extends TestCase
         $cart = Cart::create();
         $cart->markAsPaid();
         self::assertTrue($cart->isPaid());
+    }
+
+    public function testGetTotalPrice(): void
+    {
+        $cart = Cart::create();
+
+        $item1 = (new CartItemBuilder())
+            ->withId(Id::generate())
+            ->withPrice(new Price(200.00, new Currency('RUB')))->build();
+
+        $item2 = (new CartItemBuilder())
+            ->withId(Id::generate())
+            ->withPrice(new Price(300.00, new Currency('RUB')))->build();
+
+        $item3 = (new CartItemBuilder())
+            ->withId(Id::generate())
+            ->withPrice(new Price(400.00, new Currency('RUB')))->build();
+
+        $cart->addItem($item1);
+        $cart->addItem($item2);
+        $cart->removeItemByProductId($item1->getProductId());
+        $cart->addItem($item3);
+
+        self::assertEquals(700.00, $cart->getTotalPrice()->getValue());
+
     }
 }

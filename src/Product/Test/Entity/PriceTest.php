@@ -16,7 +16,7 @@ class PriceTest extends TestCase
     public function testInvalid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        new Price(0.00, new Currency('RUB'));
+        new Price(-10.00, new Currency('RUB'));
     }
     public function testRound(): void
     {

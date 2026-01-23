@@ -2,7 +2,9 @@
 
 namespace App\Cart\Entity;
 
+use App\Product\Entity\Currency;
 use App\Shared\Domain\ValueObject\Id;
+use App\Shared\Domain\ValueObject\Price;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\Uuid;
 
@@ -76,5 +78,18 @@ class Cart
     public function isEmpty(): bool
     {
         return $this->items->isEmpty();
+    }
+
+    public function getTotalPrice(): Price
+    {
+        $sum = 0;
+        if($this->isEmpty()) {
+            return new Price(0.00, new Currency('RUB'));
+        }
+        foreach ($this->items as $item) {
+            /** @var CartItem $item */
+            $sum += $item->getPrice()->getValue();
+        }
+        return new Price($sum, new Currency('RUB'));
     }
 }

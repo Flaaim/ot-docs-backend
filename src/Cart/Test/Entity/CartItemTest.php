@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Cart\Test\Entity;
-
-use App\Cart\Entity\CartItem;
 use App\Cart\Test\Builder\CartItemBuilder;
-use App\Shared\Domain\ValueObject\Id;
 use PHPUnit\Framework\TestCase;
 
 class CartItemTest extends TestCase
@@ -25,5 +22,4 @@ class CartItemTest extends TestCase
             $cartItem->getFile()->getPathToFile()
         );
     }
-
 }
