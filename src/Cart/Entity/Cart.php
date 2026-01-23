@@ -64,7 +64,7 @@ class Cart
 
     public function clear(): void
     {
-        if($this->items->isEmpty()) {
+        if($this->isEmpty()) {
             throw new \DomainException('Cart is empty.');
         }
         $this->items->clear();
@@ -72,5 +72,9 @@ class Cart
     public function markAsPaid(): void
     {
         $this->isPaid = true;
+    }
+    public function isEmpty(): bool
+    {
+        return $this->items->isEmpty();
     }
 }

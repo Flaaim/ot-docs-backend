@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cart\Command\RemoveItem;
+namespace App\Cart\Command\Clear;
 
 use App\Cart\Command\CartAwareHandler;
 use App\Cart\Entity\CartRepository;
@@ -11,7 +11,6 @@ use App\Shared\Domain\ValueObject\Id;
 class Handler extends CartAwareHandler
 {
     public function __construct(
-        private ProductRepository $products,
         private CartRepository $carts,
         private Flusher $flusher
     ) {
@@ -22,9 +21,7 @@ class Handler extends CartAwareHandler
     {
         $cart = $this->getOrCreateCart(new Id($command->cartId));
 
-        $product = $this->products->get(new Id($command->productId));
-
-        $cart->removeItemByProductId($product->getId());
+        $cart->clear();
 
         $this->carts->upsert($cart);
 
