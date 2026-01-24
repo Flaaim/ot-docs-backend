@@ -19,7 +19,7 @@ class RequestFixture extends AbstractFixture
             ->withName('ПИ 1791.10 Итоговое тестирование по Программе IП')
             ->withPrice(new Price(550.00, new Currency('RUB')))
             ->withFile(new File('fire/1791/pi1791.10.docx'))
-            ->withCourse('1791')
+            ->withSku('1791')
             ->build();
 
         $manager->persist($product);

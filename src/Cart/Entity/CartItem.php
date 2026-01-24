@@ -23,7 +23,7 @@ class CartItem
         #[ORM\Column(type: 'price')]
         private Price $price,
         #[ORM\Column(type: 'string', length: 25)]
-        private string $course,
+        private string $sku,
         #[ORM\Column(type: 'file')]
         private File $file,
     ) {
@@ -40,9 +40,9 @@ class CartItem
     {
         return $this->price;
     }
-    public function getCourse(): string
+    public function getSku(): string
     {
-        return $this->course;
+        return $this->sku;
     }
     public function getFile(): File
     {

@@ -21,7 +21,7 @@ class RequestActionTest extends WebTestCase
             'name' => 'ПИ 1792.9 Итоговое тестирование по Программе IIП',
             'amount' => 500.00,
             'path' => 'fire/1792/pi1792.9.docx',
-            'course' => '1792'
+            'sku' => '1792'
         ]));
 
         self::assertEquals(201, $response->getStatusCode());
@@ -37,7 +37,7 @@ class RequestActionTest extends WebTestCase
             'name' => 'ПИ 1791.11 Итоговое тестирование по Программе IП',
             'amount' => 500.00,
             'path' => 'fire/1791/pi1791.11.docx',
-            'course' => '1791'
+            'sku' => '1791'
         ]));
 
         self::assertEquals(201, $response->getStatusCode());
@@ -61,7 +61,7 @@ class RequestActionTest extends WebTestCase
                 'name' => 'This value is too short. It should have 5 characters or more.',
                 'amount' => 'This value should be positive.',
                 'path' => 'This value should not be blank.',
-                'course' => 'This value should not be blank.',
+                'sku' => 'This value should not be blank.',
             ]
         ], $data);
     }

@@ -20,7 +20,7 @@ class Handler
     }
     public function handle(Command $command): Response
     {
-        $product = $this->products->findByCourse($command->course);
+        $product = $this->products->findBySku($command->sku);
 
         if ($product) {
             /** @var Product $product */
@@ -36,7 +36,7 @@ class Handler
                 $command->name,
                 new Price($command->amount, new Currency('RUB')),
                 new File($command->path),
-                $command->course
+                $command->sku
             );
         }
 

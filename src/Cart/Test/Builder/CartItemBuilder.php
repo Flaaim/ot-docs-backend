@@ -13,14 +13,14 @@ class CartItemBuilder
     private Id $id;
     private string $name;
     private Price $price;
-    private string $course;
+    private string $sku;
     private File $file;
     public function __construct()
     {
         $this->id = new Id('e63290b2-33e9-4c90-918f-4b28ceb42ca0');
         $this->name = 'Приказ о создании нештатного аварийно-спасательного формирования';
         $this->price = new Price(350.00, new Currency('RUB'));
-        $this->course = 'ОТ-ПР';
+        $this->sku = 'ОТ-ПР';
         $this->file = new File('safety/orders/prikaz-o-sozdaniy.docx');
     }
 
@@ -39,9 +39,9 @@ class CartItemBuilder
         $this->price = $price;
         return $this;
     }
-    public function withCourse(string $course): self
+    public function withSku(string $sku): self
     {
-        $this->course = $course;
+        $this->sku = $sku;
         return $this;
     }
     public function withFile(File $file): self
@@ -55,7 +55,7 @@ class CartItemBuilder
             $this->id,
             $this->name,
             $this->price,
-            $this->course,
+            $this->sku,
             $this->file
         );
     }

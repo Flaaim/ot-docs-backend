@@ -17,18 +17,18 @@ class Product
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
     #[ORM\Column(type: 'string', length: 25, unique: true)]
-    private string $course;
+    private string $sku;
     #[ORM\Column(type: 'price')]
     private Price $price;
     #[ORM\Column(type: 'file')]
     private File $file;
-    public function __construct(Id $id, string $name, Price $price, File $file, string $course)
+    public function __construct(Id $id, string $name, Price $price, File $file, string $sku)
     {
         $this->id = $id;
         $this->name = $name;
         $this->price = $price;
         $this->file = $file;
-        $this->course = $course;
+        $this->sku = $sku;
     }
     public function getId(): Id
     {
@@ -46,9 +46,9 @@ class Product
     {
         return $this->file;
     }
-    public function getCourse(): string
+    public function getSku(): string
     {
-        return $this->course;
+        return $this->sku;
     }
     public function update(string $name, Price $price, File $file): void
     {

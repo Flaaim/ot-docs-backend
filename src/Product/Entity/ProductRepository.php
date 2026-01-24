@@ -25,17 +25,17 @@ class ProductRepository
         /** @var Product $product */
         return $product;
     }
-    public function findByCourse(string $course): ?Product
+    public function findBySku(string $sku): ?Product
     {
-        return $this->repo->findOneBy(['course' => $course]);
+        return $this->repo->findOneBy(['sku' => $sku]);
     }
     public function upsert(Product $product): void
     {
         $qb = $this->em->createQueryBuilder();
 
         $sql = '
-        INSERT INTO products (id, name, price, file, course) 
-        VALUES (:id, :name, :price, :file, :course)
+        INSERT INTO products (id, name, price, file, sku) 
+        VALUES (:id, :name, :price, :file, :sku)
         ON DUPLICATE KEY UPDATE 
             name = VALUES(name),
             price = VALUES(price),
@@ -49,7 +49,7 @@ class ProductRepository
                 'name' => $product->getName(),
                 'price' => $product->getPrice()->getValue(),
                 'file' => $product->getFile()->getPathToFile(),
-                'course' => $product->getCourse()
+                'sku' => $product->getSku()
             ]);
     }
 }

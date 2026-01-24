@@ -47,7 +47,7 @@ class Handler
                 new MakePaymentDTO(
                     $payment->getPrice()->getValue(),
                     $payment->getPrice()->getCurrency()->getValue(),
-                    $product->getCourse(),
+                    $product->getSku(),
                     $payment->getReturnToken()->getValue(),
                     ['email' => $email->getValue(), 'productId' => $product->getId()->getValue()],
                     $email->getValue(),

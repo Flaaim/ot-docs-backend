@@ -20,7 +20,6 @@ class ProductFixture extends AbstractFixture
             new Price(450.00, new Currency()),
             new File('/ppe/templates.txt'),
             'ot161.4',
-            '161'
         );
 
         $manager->persist($product);
