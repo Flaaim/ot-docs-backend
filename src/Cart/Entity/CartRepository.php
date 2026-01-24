@@ -2,7 +2,6 @@
 
 namespace App\Cart\Entity;
 
-use App\Product\Entity\Product;
 use App\Shared\Domain\ValueObject\Id;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -13,7 +12,7 @@ class CartRepository
     private EntityManagerInterface $em;
     public function __construct(EntityManagerInterface $em)
     {
-        $repo = $em->getRepository(Product::class);
+        $repo = $em->getRepository(Cart::class);
         $this->repo = $repo;
         $this->em = $em;
     }

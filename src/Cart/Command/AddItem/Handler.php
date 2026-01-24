@@ -35,7 +35,7 @@ class Handler extends CartAwareHandler
 
         $cart->addItem($cartItem);
 
-        $this->carts->upsert($cart);
+        $this->carts->update($cart);
 
         $this->flusher->flush();
     }

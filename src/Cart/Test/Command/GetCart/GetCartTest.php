@@ -19,7 +19,7 @@ class GetCartTest extends TestCase
 
     public function testSuccess(): void
     {
-        $command = new Command($cartId = Id::generate());
+        $command = new Command(Id::generate());
         $handler = new Handler($carts = $this->createMock(CartRepository::class));
 
         $carts->expects($this->once())
