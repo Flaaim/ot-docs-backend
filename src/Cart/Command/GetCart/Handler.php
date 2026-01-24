@@ -15,11 +15,11 @@ class Handler extends CartAwareHandler
         parent::__construct($carts);
     }
 
-    public function handle(Command $command): Response
+    public function handle(Command $command): CartResponse
     {
         $cart = $this->getOrCreateCart(new Id($command->cartId));
 
-        return Response::fromCart($cart);
+        return CartResponse::fromCart($cart);
     }
 
 }

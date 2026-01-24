@@ -36,7 +36,7 @@ class Cart
     {
         return $this->createdAt;
     }
-    public function getItems(): ArrayCollection
+    public function getItems(): Collection
     {
         return $this->items;
     }
@@ -96,7 +96,7 @@ class Cart
 
     public function getTotalPrice(): Price
     {
-        $sum = 0;
+        $sum = 0.00;
         if($this->isEmpty()) {
             return new Price(0.00, new Currency('RUB'));
         }
