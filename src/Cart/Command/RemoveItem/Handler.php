@@ -22,9 +22,7 @@ class Handler extends CartAwareHandler
     {
         $cart = $this->getOrCreateCart(new Id($command->cartId));
 
-        $product = $this->products->get(new Id($command->productId));
-
-        $cart->removeItemByProductId($product->getId());
+        $cart->removeItemByProductId(new Id($command->productId));
 
         $this->carts->update($cart);
 
