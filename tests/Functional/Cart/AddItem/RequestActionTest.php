@@ -88,4 +88,21 @@ class RequestActionTest extends WebTestCase
         ], $data);
 
     }
+
+    public function testAddNotExistingItem(): void
+    {
+        $response = $this->app()->handle(self::json('POST', '/payment-service/carts/add-item', [
+            'productId' => '3e718da6-1c55-4942-8df8-258bb228cd0a',
+            'cartId' => '6e648ddf-1fe2-4c63-9ebc-b5c3f02ce221',
+        ]));
+
+        self::assertEquals(400, $response->getStatusCode());
+        self::assertJson($body = (string)$response->getBody());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'message' => 'Product not found.'
+        ], $data);
+    }
 }
