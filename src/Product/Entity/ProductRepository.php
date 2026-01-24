@@ -34,13 +34,12 @@ class ProductRepository
         $qb = $this->em->createQueryBuilder();
 
         $sql = '
-        INSERT INTO products (id, name, price, file, cipher, course) 
-        VALUES (:id, :name, :price, :file, :cipher, :course)
+        INSERT INTO products (id, name, price, file, course) 
+        VALUES (:id, :name, :price, :file, :course)
         ON DUPLICATE KEY UPDATE 
             name = VALUES(name),
             price = VALUES(price),
-            file = VALUES(file), 
-            cipher = VALUES(cipher)
+            file = VALUES(file)
          ';
 
         $qb->getEntityManager()
@@ -50,7 +49,6 @@ class ProductRepository
                 'name' => $product->getName(),
                 'price' => $product->getPrice()->getValue(),
                 'file' => $product->getFile()->getPathToFile(),
-                'cipher' => $product->getCipher(),
                 'course' => $product->getCourse()
             ]);
     }

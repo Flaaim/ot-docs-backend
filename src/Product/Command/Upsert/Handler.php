@@ -28,7 +28,7 @@ class Handler
                 $command->name,
                 new Price($command->amount, new Currency('RUB')),
                 new File($command->path),
-                $command->cipher,
+
             );
         } else {
             $product = new Product(
@@ -36,7 +36,6 @@ class Handler
                 $command->name,
                 new Price($command->amount, new Currency('RUB')),
                 new File($command->path),
-                $command->cipher,
                 $command->course
             );
         }

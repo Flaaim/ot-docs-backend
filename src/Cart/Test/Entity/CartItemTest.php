@@ -16,7 +16,7 @@ class CartItemTest extends TestCase
             $cartItem->getName()
         );
         self::assertEquals(350.00, $cartItem->getPrice()->getValue());
-        self::assertEquals('ОТ-ПР', $cartItem->getCipher());
+        self::assertEquals('ОТ-ПР', $cartItem->getCourse());
         self::assertEquals(
             'safety/orders/prikaz-o-sozdaniy.docx',
             $cartItem->getFile()->getPathToFile()

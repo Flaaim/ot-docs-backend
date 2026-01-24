@@ -24,10 +24,9 @@ class RequestAction implements RequestHandlerInterface
 
         $command = new Command(
             $data['name'] ?? '',
-            $data['cipher'] ?? '',
             $data['amount'] ?? 0,
             $data['path'] ?? '',
-            $data['course'] ?? ''
+                $data['course'] ?? '',
         );
 
         $this->validator->validate($command);

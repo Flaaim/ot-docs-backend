@@ -26,7 +26,7 @@ class Handler extends CartAwareHandler
 
         $cart->removeItemByProductId($product->getId());
 
-        $this->carts->upsert($cart);
+        $this->carts->update($cart);
 
         $this->flusher->flush();
     }

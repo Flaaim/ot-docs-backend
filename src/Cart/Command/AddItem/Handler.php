@@ -29,7 +29,7 @@ class Handler extends CartAwareHandler
             $product->getId(),
             $product->getName(),
             $product->getPrice(),
-            $product->getCipher(),
+            $product->getCourse(),
             $product->getFile()
         );
 

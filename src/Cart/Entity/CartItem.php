@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'cart_items')]
 class CartItem
 {
-    #[ORM\ManyToOne(targetEntity: Cart::class, inversedBy: 'cart_items')]
+    #[ORM\ManyToOne(targetEntity: Cart::class, inversedBy: 'items')]
     #[ORM\JoinColumn(name: 'cart_id', referencedColumnName: 'id', nullable: false)]
     private Cart $cart;
     public function __construct(
@@ -23,7 +23,7 @@ class CartItem
         #[ORM\Column(type: 'price')]
         private Price $price,
         #[ORM\Column(type: 'string', length: 25)]
-        private string $cipher,
+        private string $course,
         #[ORM\Column(type: 'file')]
         private File $file,
     ) {
@@ -40,9 +40,9 @@ class CartItem
     {
         return $this->price;
     }
-    public function getCipher(): string
+    public function getCourse(): string
     {
-        return $this->cipher;
+        return $this->course;
     }
     public function getFile(): File
     {

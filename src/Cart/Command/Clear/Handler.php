@@ -23,7 +23,7 @@ class Handler extends CartAwareHandler
 
         $cart->clear();
 
-        $this->carts->upsert($cart);
+        $this->carts->update($cart);
 
         $this->flusher->flush();
     }

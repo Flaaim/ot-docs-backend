@@ -10,8 +10,6 @@ class Command
         #[Assert\NotBlank]
         #[Assert\Length(min: 5, max: 255)]
         public string $name,
-        #[Assert\NotBlank]
-        public string $cipher,
         #[Assert\Positive]
         public float $amount,
         #[Assert\NotBlank]
