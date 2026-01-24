@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Payment\Command\CreatePayment;
+namespace App\Payment\Command\CreatePayment\Cart;
 
+use App\Cart\Entity\CartRepository;
 use App\Flusher;
+use App\Payment\Command\CreatePayment\CreatePaymentResponse;
 use App\Payment\Entity\Email;
 use App\Payment\Entity\Payment;
 use App\Payment\Entity\PaymentRepository;
@@ -24,36 +26,41 @@ class Handler
     public function __construct(
         private readonly Flusher $flusher,
         private readonly ProductRepository $products,
+        private readonly CartRepository $carts,
         private readonly YookassaProvider $yookassaProvider,
         private readonly PaymentRepository $payments,
         private readonly LoggerInterface $logger
     ) {
     }
-    public function handle(Command $command): Response
+
+    public function handle(Command $command): CreatePaymentResponse
     {
         $email = new Email($command->email);
-        $product = $this->products->get(new Id($command->productId));
+        $cart = $this->carts->find(new Id($command->cartId));
+        if(null === $cart) {
+            throw new \DomainException('Cart not found.');
+        }
         $returnToken = new Token(Id::generate(), new DateTimeImmutable('+ 1 hour'));
         $payment = new Payment(
             new Id(Uuid::uuid4()->toString()),
             $email,
-            $command->productId,
-            new Price($product->getPrice()->getValue(), new Currency('RUB')),
+            $command->cartId,
+            $cart->getTotalPrice(),
             new DateTimeImmutable(),
             $returnToken
         );
-        try {
+        try{
+
             $paymentInfo = $this->yookassaProvider->initiatePayment(
                 new MakePaymentDTO(
                     $payment->getPrice()->getValue(),
                     $payment->getPrice()->getCurrency()->getValue(),
-                    $product->getSku(),
+                    'Оплата картой',
                     $payment->getReturnToken()->getValue(),
-                    ['email' => $email->getValue(), 'productId' => $product->getId()->getValue()],
+                    ['email' => $email->getValue(), 'productsIds' => $cart->getCartItemsIds()],
                     $email->getValue(),
                 )
             );
-            $payment->setExternalId($paymentInfo->paymentId);
         } catch (PaymentException $e) {
             $this->logger->error('Failed to create payment: ', ['error' => $e->getMessage()]);
             $payment->setStatus(Status::cancelled());
@@ -63,11 +70,10 @@ class Handler
             $this->flusher->flush();
             throw $e;
         }
-
         $this->payments->create($payment);
         $this->flusher->flush();
 
-        return new Response(
+        return new CreatePaymentResponse(
             $payment->getPrice()->getValue(),
             $payment->getPrice()->getCurrency()->getValue(),
             $payment->getStatus()->getValue(),

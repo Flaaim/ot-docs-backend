@@ -3,8 +3,7 @@
 namespace App\Payment\Command\CreatePayment;
 
 use Symfony\Component\Validator\Constraints as Assert;
-
-class Command
+class CreatePaymentCommand
 {
     public function __construct(
         #[Assert\NotBlank]
@@ -12,7 +11,9 @@ class Command
         public string $email,
         #[Assert\NotBlank]
         #[Assert\Uuid]
-        public string $productId,
-    ) {
-    }
+        public string $sourcePaymentId,
+        #[Assert\Choice(choices: ['form', 'cart'])]
+        public string $paymentType,
+    )
+    {}
 }

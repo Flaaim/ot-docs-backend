@@ -2,7 +2,7 @@
 
 namespace App\Payment\Command\CreatePayment;
 
-class Response implements \JsonSerializable
+class CreatePaymentResponse implements \JsonSerializable
 {
     public function __construct(
         public float $amount,

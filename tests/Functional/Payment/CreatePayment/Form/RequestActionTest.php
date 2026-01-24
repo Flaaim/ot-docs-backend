@@ -1,11 +1,11 @@
 <?php
 
-namespace Test\Functional\Payment\CreatePayment;
+namespace Test\Functional\Payment\CreatePayment\Form;
 
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
+use Ramsey\Uuid\Uuid;
 use Test\Functional\Json;
 use Test\Functional\WebTestCase;
-use Test\Functional\YookassaClient;
 
 class RequestActionTest extends WebTestCase
 {
@@ -22,7 +22,8 @@ class RequestActionTest extends WebTestCase
     {
         $response = $this->app()->handle(self::json('POST', '/payment-service/process-payment', [
             'email' => 'test@app.ru',
-            'productId' => 'b38e76c0-ac23-4c48-85fd-975f32c8801f'
+            'sourcePaymentId' => 'b38e76c0-ac23-4c48-85fd-975f32c8801f',
+            'paymentType' => 'form'
         ]));
 
         $this->assertEquals(201, $response->getStatusCode());
@@ -46,15 +47,36 @@ class RequestActionTest extends WebTestCase
         self::assertEquals([
             'errors' => [
                 'email' => 'This value should not be blank.',
-                'productId' => 'This value should not be blank.',
+                'sourcePaymentId' => 'This value should not be blank.',
+                'paymentType' => 'The value you selected is not a valid choice.'
             ]
+        ], $data);
+    }
+    public function testInvalidPaymentType(): void
+    {
+        $response = $this->app()->handle(self::json('POST', '/payment-service/process-payment', [
+            'email' => 'test@app.ru',
+            'sourcePaymentId' => Uuid::uuid4()->toString(),
+            'paymentType' => 'invalid'
+        ]));
+
+        self::assertEquals(422, $response->getStatusCode());
+        self::assertJson($body = (string)$response->getBody());
+
+        $data = Json::decode($body);
+
+        self::assertArraySubset([
+            'errors' => [
+                'paymentType' => 'The value you selected is not a valid choice.'
+            ],
         ], $data);
     }
     public function testNotFound(): void
     {
         $response = $this->app()->handle(self::json('POST', '/payment-service/process-payment', [
             'email' => 'test@app.ru',
-            'productId' => \Ramsey\Uuid\Uuid::uuid4()->toString(),
+            'sourcePaymentId' => Uuid::uuid4()->toString(),
+            'paymentType' => 'form'
         ]));
 
         self::assertEquals(400, $response->getStatusCode());
@@ -71,7 +93,8 @@ class RequestActionTest extends WebTestCase
     {
         $response = $this->app()->handle(self::json('POST', '/payment-service/process-payment', [
             'email' => 'invalid',
-            'productId' => 'b38e76c0-ac23-4c48-85fd-975f32c8809f'
+            'sourcePaymentId' => 'b38e76c0-ac23-4c48-85fd-975f32c8809f',
+            'paymentType' => 'form'
         ]));
 
         self::assertEquals(422, $response->getStatusCode());
@@ -87,11 +110,12 @@ class RequestActionTest extends WebTestCase
         ], $data);
     }
 
-    public function testInvalidProductId(): void
+    public function testInvalidSourcePaymentId(): void
     {
         $response = $this->app()->handle(self::json('POST', '/payment-service/process-payment', [
             'email' => 'test@user.ru',
-            'productId' => 'someInvalidProductId',
+            'sourcePaymentId' => 'someInvalidSourcePaymentId',
+            'paymentType' => 'form'
         ]));
 
         self::assertEquals(422, $response->getStatusCode());
@@ -102,8 +126,10 @@ class RequestActionTest extends WebTestCase
 
         self::assertEquals([
             'errors' => [
-                'productId' => 'This is not a valid UUID.',
+                'sourcePaymentId' => 'This is not a valid UUID.',
             ]
         ], $data);
     }
+
+
 }

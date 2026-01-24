@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Functional\Payment\CreatePayment;
+namespace Test\Functional\Payment\CreatePayment\Form;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Persistence\ObjectManager;

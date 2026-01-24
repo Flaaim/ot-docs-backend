@@ -106,4 +106,14 @@ class Cart
         }
         return new Price($sum, new Currency('RUB'));
     }
+
+    public function getCartItemsIds(): array
+    {
+        $ids = [];
+        foreach($this->items as $item) {
+            /** @var CartItem $item */
+            $ids[] = $item->getProductId()->getValue();
+        }
+        return $ids;
+    }
 }
