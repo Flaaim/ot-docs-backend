@@ -76,6 +76,10 @@ class Cart
 
     public function clear(): void
     {
+        if($this->isPaid)
+        {
+            throw new \DomainException('Can not clear cart with paid items.');
+        }
         if($this->isEmpty()) {
             throw new \DomainException('Cart is empty.');
         }

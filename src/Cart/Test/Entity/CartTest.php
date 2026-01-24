@@ -3,6 +3,7 @@
 namespace App\Cart\Test\Entity;
 
 use App\Cart\Entity\Cart;
+use App\Cart\Test\Builder\CartBuilder;
 use App\Cart\Test\Builder\CartItemBuilder;
 use App\Product\Entity\Currency;
 use App\Shared\Domain\ValueObject\Id;
@@ -88,7 +89,15 @@ class CartTest extends TestCase
         self::expectExceptionMessage('Cart is empty.');
         $cart->clear();
     }
+    public function testClearPaidCart(): void
+    {
+        $cart = (new CartBuilder())->withPaid()->build();
+        $cart->addItem((new CartItemBuilder())->withId(Id::generate())->build());
 
+        self::expectException(\DomainException::class);
+        self::expectExceptionMessage('Can not clear cart with paid items.');
+        $cart->clear();
+    }
     public function testPaid(): void
     {
         $cart = Cart::createEmpty();

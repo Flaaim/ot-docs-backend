@@ -20,6 +20,11 @@ class CartBuilder
         $this->items = new ArrayCollection();
         $this->isPaid = false;
     }
+    public function withId(Id $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
     public function withCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;

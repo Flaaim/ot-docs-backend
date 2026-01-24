@@ -25,6 +25,7 @@ return static function (App $app): void {
 
         $group->group('/carts', function (RouteCollectorProxy $group): void {
            $group->post('/add-item', Cart\AddItem\RequestAction::class);
+           $group->post('/clear', Cart\Clear\RequestAction::class);
         });
 
         $group->group('/auth', function (RouteCollectorProxy $group): void {
