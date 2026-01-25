@@ -4,7 +4,7 @@ namespace App\Payment\Command\CreatePayment;
 
 use App\Payment\Command\CreatePayment\Form\Command;
 use App\Payment\Command\CreatePayment\Form\Handler;
-
+use App\Payment\Entity\PaymentType;
 
 class CreatorFromForm implements CreatePaymentInterface
 {
@@ -13,7 +13,6 @@ class CreatorFromForm implements CreatePaymentInterface
     )
     {
     }
-    public const TYPE = 'form';
     public function createPayment(CreatePaymentCommand $command): CreatePaymentResponse
     {
         $command = new Command($command->email, $command->sourcePaymentId);
@@ -22,6 +21,6 @@ class CreatorFromForm implements CreatePaymentInterface
 
     public function supports(string $paymentType): bool
     {
-        return self::TYPE === $paymentType;
+        return PaymentType::FORM->value === $paymentType;
     }
 }
