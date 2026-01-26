@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Product\Test\Entity;
+namespace App\Shared\Test\Unit\ValueObject;
 
 use App\Shared\Domain\ValueObject\File;
 use PHPUnit\Framework\TestCase;
