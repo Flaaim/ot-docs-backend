@@ -6,7 +6,7 @@ use App\Cart\Entity\Cart;
 use App\Cart\Entity\CartRepository;
 use App\Shared\Domain\ValueObject\Id;
 
-class CartAwareHandler
+abstract class CartAwareHandler
 {
     public function __construct(
         private CartRepository $carts,
