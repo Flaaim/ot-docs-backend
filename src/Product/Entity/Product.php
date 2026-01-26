@@ -2,18 +2,14 @@
 
 namespace App\Product\Entity;
 
-use App\Shared\Domain\Service\Template\TemplateManager;
-use App\Shared\Domain\Service\Template\TemplatePath;
 use App\Shared\Domain\ValueObject\File;
 use App\Shared\Domain\ValueObject\Id;
 use App\Shared\Domain\ValueObject\Price;
 use Doctrine\ORM\Mapping as ORM;
-use Illuminate\Contracts\Mail\Attachable;
-use Symfony\Component\Mime\Part\DataPart;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'products')]
-class Product implements Attachable
+class Product
 {
     #[ORM\Id]
     #[ORM\Column(type: 'id', unique: true)]
@@ -59,10 +55,5 @@ class Product implements Attachable
         $this->name = $name;
         $this->price = $price;
         $this->file = $file;
-    }
-
-    public function toMailAttachment()
-    {
-
     }
 }
