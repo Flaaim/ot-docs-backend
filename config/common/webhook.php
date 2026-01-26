@@ -2,10 +2,11 @@
 
 use App\Flusher;
 use App\Payment\Command\HookPayment\Handler as HookPaymentHandler;
-use App\Payment\Entity\PaymentRepository;
-use App\Payment\Service\Delivery\ProductDeliveryService;
-use App\Payment\Service\ProductSender;
 use App\Payment\Command\HookPayment\SendProduct\Handler as SendProductHandler;
+use App\Payment\Entity\PaymentRepository;
+use App\Payment\Service\Delivery\DeliveryFactory;
+use App\Payment\Service\Delivery\DeliveryService;
+use App\Payment\Service\Delivery\FormDelivery\ProductSender;
 use App\Product\Entity\ProductRepository;
 use App\Shared\Domain\Service\Payment\Provider\YookassaProvider;
 use App\Shared\Domain\Service\Payment\WebhookParser\YookassaWebhookParser;
@@ -20,24 +21,18 @@ use Twig\Environment;
 return [
     HookPaymentHandler::class => function (ContainerInterface $c) {
         $yookassaWebhookParser = new YookassaWebhookParser();
-
         $yookassaProvider = $c->get(YookassaProvider::class);
 
-        $productSender = new ProductSender(
-            $c->get(MailerInterface::class),
-            $c->get(TemplatePath::class),
-            $c->get(Environment::class),
-            $logger = $c->get(LoggerInterface::class),
-        );
+        $logger = $c->get(LoggerInterface::class);
+        $deliveryFactory = $c->get(DeliveryFactory::class);
 
         $em = $c->get(EntityManagerInterface::class);
+
         $sendProductHandler = new SendProductHandler(
-            new ProductDeliveryService(
-                new ProductRepository($em),
-                $productSender
-            ),
+            $deliveryFactory,
             $c->get(EventDispatcher::class)
         );
+
         return new HookPaymentHandler(
             $yookassaWebhookParser,
             $yookassaProvider,

@@ -7,6 +7,7 @@ use App\Payment\Command\CreatePayment\CreatePaymentResponse;
 use App\Payment\Entity\Email;
 use App\Payment\Entity\Payment;
 use App\Payment\Entity\PaymentRepository;
+use App\Payment\Entity\PaymentType;
 use App\Payment\Entity\Status;
 use App\Payment\Entity\Token;
 use App\Product\Entity\Currency;
@@ -50,7 +51,11 @@ class Handler
                     $payment->getPrice()->getCurrency()->getValue(),
                     $product->getSku(),
                     $payment->getReturnToken()->getValue(),
-                    ['email' => $email->getValue(), 'productId' => $product->getId()->getValue()],
+                    [
+                        'email' => $email->getValue(),
+                        'productId' => $product->getId()->getValue(),
+                        'type' => PaymentType::FORM->value
+                    ],
                     $email->getValue(),
                 )
             );

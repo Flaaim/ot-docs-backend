@@ -3,7 +3,7 @@
 namespace App\Payment\Test\Service;
 
 use App\Payment\Entity\Email as UserEmail;
-use App\Payment\Service\ProductSender;
+use App\Payment\Service\Delivery\FormDelivery\ProductSender;
 use App\Product\Entity\Currency;
 use App\Product\Entity\Product;
 use App\Shared\Domain\Service\Template\TemplateManager;

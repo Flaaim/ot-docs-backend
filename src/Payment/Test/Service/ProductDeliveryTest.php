@@ -3,8 +3,8 @@
 namespace App\Payment\Test\Service;
 
 use App\Payment\Entity\Email;
-use App\Payment\Service\Delivery\ProductDeliveryService;
-use App\Payment\Service\ProductSender;
+use App\Payment\Service\Delivery\DeliveryService;
+use App\Payment\Service\Delivery\FormDelivery\ProductSender;
 use App\Product\Entity\Product;
 use App\Product\Entity\ProductRepository;
 use App\Shared\Domain\Service\Payment\PaymentWebhookDataInterface;
@@ -21,7 +21,7 @@ class ProductDeliveryTest extends TestCase
         $paymentWebHookData = $this->createMock(PaymentWebhookDataInterface::class);
 
 
-        $delivery = new ProductDeliveryService($repository, $sender);
+        $delivery = new DeliveryService($repository, $sender);
 
         $paymentWebHookData->method('getMetadata')->willReturnCallback(fn(string $key) => match ($key) {
             'productId' => 'da13a321-37ca-44c7-9434-42e9ae9a3043',
@@ -48,7 +48,7 @@ class ProductDeliveryTest extends TestCase
         $repository = $this->createMock(ProductRepository::class);
         $paymentWebHookData = $this->createMock(PaymentWebhookDataInterface::class);
 
-        $delivery = new ProductDeliveryService($repository, $sender);
+        $delivery = new DeliveryService($repository, $sender);
 
         $paymentWebHookData->method('getMetadata')->willReturnCallback(
             fn(string $key) => $data[$key] ?? null
@@ -63,7 +63,7 @@ class ProductDeliveryTest extends TestCase
         return [
             [
                 [
-                    'productId' => null,
+                    'productId' => 'null',
                     'email' => 'test@example.com'
                 ],
             ],

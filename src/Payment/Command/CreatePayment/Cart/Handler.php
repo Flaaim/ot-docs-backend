@@ -8,6 +8,7 @@ use App\Payment\Command\CreatePayment\CreatePaymentResponse;
 use App\Payment\Entity\Email;
 use App\Payment\Entity\Payment;
 use App\Payment\Entity\PaymentRepository;
+use App\Payment\Entity\PaymentType;
 use App\Payment\Entity\Status;
 use App\Payment\Entity\Token;
 use App\Product\Entity\Currency;
@@ -57,7 +58,11 @@ class Handler
                     $payment->getPrice()->getCurrency()->getValue(),
                     'Оплата картой',
                     $payment->getReturnToken()->getValue(),
-                    ['email' => $email->getValue(), 'productsIds' => $cart->getCartItemsIds()],
+                    [
+                        'email' => $email->getValue(),
+                        'cartId' => $cart->getId()->getValue(),
+                        'type' => PaymentType::CART->value
+                    ],
                     $email->getValue(),
                 )
             );

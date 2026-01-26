@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Payment\Service;
+namespace App\Payment\Service\Delivery\FormDelivery;
 
 use App\Payment\Entity\Email;
-use App\Product\Entity\Product;
+use App\Payment\Service\Delivery\SenderInterface;
 use App\Shared\Domain\Service\Template\TemplateManager;
 use App\Shared\Domain\Service\Template\TemplatePath;
+use Illuminate\Contracts\Mail\Attachable;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\File;
 use Twig\Environment;
 
-class ProductSender
+class ProductSender implements SenderInterface
 {
     private MailerInterface $mailer;
     private TemplatePath $templatePath;
@@ -27,10 +28,10 @@ class ProductSender
         $this->twig = $twig;
         $this->logger = $logger;
     }
-    public function send(Email $email, Product $product): void
+    public function send(Email $email, Attachable $data): void
     {
         $message = new \Symfony\Component\Mime\Email();
-        $message->subject($product->getName());
+        $message->subject($data->getName());
         $message->to($email->getValue());
         $message->html(
             $this->twig->render('mail/template.html.twig')
@@ -40,7 +41,7 @@ class ProductSender
                 new File(
                     (new TemplateManager(
                         $this->templatePath,
-                        $product->getFile()
+                        $data->getFile()
                     ))
                         ->getTemplate()
                 )
