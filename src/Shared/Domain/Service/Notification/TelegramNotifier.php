@@ -2,6 +2,7 @@
 
 namespace App\Shared\Domain\Service\Notification;
 
+use App\Payment\Entity\Payment;
 use App\Shared\Domain\Event\Payment\SuccessfulPaymentEvent;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -25,6 +26,7 @@ class TelegramNotifier implements NotificationInterface
     }
     public function sendSuccessfulPayment(object $event): void
     {
+        /** @var Payment $payment */
         $payment = $event->getPayment();
         try {
             $this->client->request(
@@ -36,7 +38,7 @@ class TelegramNotifier implements NotificationInterface
                         'text' => 'Успешный платеж. ' . PHP_EOL
                             . 'Сумма: ' . $payment->getPrice()->formatted() . PHP_EOL
                             . 'Email: ' . $payment->getEmail()->getValue() . PHP_EOL
-                            . 'Продукт: ' . $payment->getProductId() . PHP_EOL
+                            . 'Продукт: ' . $payment->getSourcePaymentId() . PHP_EOL
 
                     ]
                 ]

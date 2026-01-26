@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Payment\Command\CreatePayment;
+namespace App\Payment\Command\CreatePayment\Request;
 
 use Symfony\Component\Validator\Constraints as Assert;
-class CreatePaymentCommand
+
+class Command
 {
     public function __construct(
         #[Assert\NotBlank]

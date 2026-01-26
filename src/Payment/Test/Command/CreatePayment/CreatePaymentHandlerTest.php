@@ -3,7 +3,7 @@
 namespace App\Payment\Test\Command\CreatePayment;
 
 use App\Flusher;
-use App\Payment\Command\CreatePayment\CreatePaymentHandler;
+use App\Payment\Command\CreatePayment\Request\Handler;
 use App\Payment\Entity\Email;
 use App\Payment\Entity\PaymentRepository;
 use App\Product\Entity\Currency;
@@ -18,7 +18,7 @@ class CreatePaymentHandlerTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $handler = new CreatePaymentHandler(
+        $handler = new Handler(
             $this->createMock(Flusher::class),
             $provider = $this->createMock(YookassaProvider::class),
             $this->createMock(PaymentRepository::class),

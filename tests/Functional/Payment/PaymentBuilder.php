@@ -18,7 +18,8 @@ class PaymentBuilder
     private ?string $externalId = null;
     private ?Status $status = null;
     private Email $email;
-    private string $productId;
+    private string $sourcePaymentId;
+    private string $type;
     private Price $price;
     private Token $returnToken;
     private \DateTimeImmutable $createdAt;
@@ -28,10 +29,11 @@ class PaymentBuilder
     {
         $this->id = new Id(Uuid::uuid4()->toString());
         $this->email = new Email('test@app.ru');
-        $this->productId = "b38e76c0-ac23-4c48-85fd-975f32c8801f";
+        $this->sourcePaymentId = "b38e76c0-ac23-4c48-85fd-975f32c8801f";
         $this->price = new Price(450.00, new Currency('RUB'));
         $this->createdAt = new DateTimeImmutable('now');
         $this->returnToken = new Token('392b1c38-f3e4-4533-a6cb-5b4e7c08d91f', new DateTimeImmutable('+ 1 hour'));
+        $this->type = 'form';
     }
 
     public function withEmail(Email $email): self
@@ -39,9 +41,14 @@ class PaymentBuilder
         $this->email = $email;
         return $this;
     }
-    public function withProductId(string $productId): self
+    public function withSourcePaymentId(string $sourcePaymentId): self
     {
-        $this->productId = $productId;
+        $this->sourcePaymentId = $sourcePaymentId;
+        return $this;
+    }
+    public function withType(string $type): self
+    {
+        $this->type = $type;
         return $this;
     }
     public function withPrice(Price $price): self
@@ -80,7 +87,8 @@ class PaymentBuilder
         $payment = new Payment(
             $this->id,
             $this->email,
-            $this->productId,
+            $this->sourcePaymentId,
+            $this->type,
             $this->price,
             $this->createdAt,
             $this->returnToken,

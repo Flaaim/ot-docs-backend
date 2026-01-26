@@ -10,34 +10,31 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'payments')]
 class Payment
 {
-    #[ORM\Id]
-    #[ORM\Column(type:'id', length: 255)]
-    private Id $id;
     #[ORM\Column(type:'string', length: 255, nullable: true)]
     private ?string $externalId = null;
     #[ORM\Column(type:'status')]
     private Status $status;
-    #[ORM\Column(type: 'email')]
-    private Email $email;
-    #[ORM\Column(type:'string', length: 255)]
-    private string $productId;
-    #[ORM\Column(type:'price')]
-    private Price $price;
-    #[ORM\Embedded(class: Token::class)]
-    private Token $returnToken;
-    #[ORM\Column(type:'datetime_immutable')]
-    private \DateTimeImmutable $createdAt;
     #[ORM\Column(type: 'boolean')]
     private bool $isSend = false;
-    public function __construct(Id $id, Email $email, string $productId, Price $price, \DateTimeImmutable $createdAt, Token $returnToken)
+    public function __construct(
+        #[ORM\Id]
+        #[ORM\Column(type:'id', length: 255)]
+        private readonly Id $id,
+        #[ORM\Column(type: 'email')]
+        private readonly Email $email,
+        #[ORM\Column(type:'string', length: 255)]
+        private readonly string $sourcePaymentId,
+        #[ORM\Column(type:'string', length: 25)]
+        private readonly string $type,
+        #[ORM\Column(type:'price')]
+        private readonly Price $price,
+        #[ORM\Column(type:'datetime_immutable')]
+        private readonly \DateTimeImmutable $createdAt,
+        #[ORM\Embedded(class: Token::class)]
+        private readonly Token $returnToken
+    )
     {
-        $this->id = $id;
         $this->status = Status::pending();
-        $this->email = $email;
-        $this->productId = $productId;
-        $this->price = $price;
-        $this->createdAt = $createdAt;
-        $this->returnToken = $returnToken;
     }
     public function getId(): Id
     {
@@ -51,9 +48,13 @@ class Payment
     {
         return $this->email;
     }
-    public function getProductId(): string
+    public function getSourcePaymentId(): string
     {
-        return $this->productId;
+        return $this->sourcePaymentId;
+    }
+    public function getType(): string
+    {
+        return $this->type;
     }
     public function getPrice(): Price
     {

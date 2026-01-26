@@ -21,6 +21,7 @@ class PaymentFixture extends AbstractFixture
             new Id(Uuid::uuid4()->toString()),
             new Email('test@app.ru'),
             'b38e76c0-ac23-4c48-85fd-975f32c8809f',
+            'cart',
             new Price(450.00, new Currency('RUB')),
             new DateTimeImmutable('now'),
             new Token(Uuid::uuid4()->toString(), new DateTimeImmutable('+ 1 hours')),

@@ -2,10 +2,14 @@
 
 namespace App\Payment\Command\CreatePayment;
 
-class CreatePaymentFactory
+use App\Payment\Command\CreatePayment\Request\Command;
+use App\Payment\Command\CreatePayment\Request\Handler;
+
+class Factory
 {
     public function __construct(
-        private array $creators
+        private readonly Handler $handler,
+        private readonly array   $creators
     )
     {
        foreach ($this->creators as $creator) {
@@ -15,12 +19,13 @@ class CreatePaymentFactory
        }
     }
 
-    public function createPayment(CreatePaymentCommand $command): CreatePaymentResponse
+    public function createPayment(Command $command): Response
     {
         foreach ($this->creators as $creator) {
             /** @var CreatePaymentInterface $creator */
             if ($creator->supports($command->paymentType)) {
-                return $creator->createPayment($command);
+                $payment = $creator->preparePayment($command);
+                return $this->handler->handle($payment);
             }
         }
         throw new \DomainException('Unsupported payment type');
