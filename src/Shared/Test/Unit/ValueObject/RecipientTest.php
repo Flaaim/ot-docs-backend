@@ -3,25 +3,23 @@
 namespace App\Shared\Test\Unit\ValueObject;
 
 use App\Payment\Entity\Email;
-use App\Shared\Domain\Service\Template\TemplateManager;
 use App\Shared\Domain\Service\Template\TemplatePath;
 use App\Shared\Domain\ValueObject\File;
 use App\Shared\Domain\ValueObject\Recipient;
-use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use Test\Functional\Payment\ProductBuilder;
 
+#[CoversClass(Recipient::class)]
 class RecipientTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $product = (new ProductBuilder())->withFile(new File('/path-to-file'))->build();
-
-        $recipient = new Recipient(new Email('some@email.ru'), new ArrayCollection([
-            new TemplateManager(new TemplatePath(sys_get_temp_dir()), $product->getFile()),
-        ]));
+        $recipient = new Recipient(new Email('some@email.ru'), 'Оплата формы на сайте');
+        $recipient->addAttachment(new File('file1.txt', new TemplatePath(sys_get_temp_dir())));
+        $recipient->addAttachment(new File('file2.txt', new TemplatePath(sys_get_temp_dir())));
 
         self::assertEquals('some@email.ru', $recipient->getEmail()->getValue());
-        self::assertCount(1, $recipient->getAttachments());
+        self::assertEquals('Оплата формы на сайте', $recipient->getSubject());
+        self::assertCount(2, $recipient->getAttachments());
     }
 }

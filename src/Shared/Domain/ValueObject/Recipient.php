@@ -3,24 +3,31 @@
 namespace App\Shared\Domain\ValueObject;
 
 use App\Payment\Entity\Email;
-use App\Shared\Domain\Service\Template\TemplateManager;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 class Recipient
 {
-    /** @var ArrayCollection<TemplateManager> $attachments */
-    private ArrayCollection $attachments;
-    private Email $email;
-    public function __construct(Email $email, ArrayCollection $attachments)
+    /** @var ArrayCollection<File> $attachments */
+    private Collection $attachments;
+    public function __construct(
+        private readonly Email $email,
+        private readonly string $subject
+    ){
+        $this->attachments = new ArrayCollection();
+    }
+    public function addAttachment(File $file): void
     {
-        $this->email = $email;
-        $this->attachments = $attachments;
+        $this->attachments->add($file);
     }
     public function getAttachments(): ArrayCollection
     {
         return $this->attachments;
     }
-
+    public function getSubject(): string
+    {
+        return $this->subject;
+    }
     public function getEmail(): Email
     {
         return $this->email;
