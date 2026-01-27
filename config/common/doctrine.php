@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Shared\Domain\Service\Template\TemplatePath;
+use App\Shared\Domain\ValueObject\FileType;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
@@ -24,6 +26,9 @@ return [
         );
 
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
+
+        $templatePath = $container->get(TemplatePath::class);
+        FileType::appendPath($templatePath);
 
         foreach ($settings['types'] as $name => $class) {
             if (!Type::hasType($name)) {
