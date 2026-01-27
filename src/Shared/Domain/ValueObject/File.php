@@ -8,28 +8,37 @@ use Webmozart\Assert\Assert;
 class File
 {
     private string $value;
-    public function __construct(string $pathToFile, TemplatePath $templatePath)
+    private ?string $fullPath = null;
+    public function __construct(string $pathToFile)
     {
         Assert::notEmpty($pathToFile);
-        $this->value =
-            DIRECTORY_SEPARATOR .
-            trim($templatePath->getValue(), '/') .
-            DIRECTORY_SEPARATOR .
-            trim($pathToFile, '/');
+        $this->value = trim($pathToFile, '/');
     }
-    public function getPath(): string
+    public function mergePaths(TemplatePath $templatePath): void
+    {
+        Assert::notEmpty($templatePath->getValue());
+        $this->fullPath = DIRECTORY_SEPARATOR . trim($templatePath->getValue(), '/') . DIRECTORY_SEPARATOR . $this->value;
+    }
+    public function getValue(): string
     {
         return $this->value;
+    }
+    public function getFullPath(): ?string
+    {
+        return $this->fullPath;
     }
     public function getFile(): string
     {
-        if(!$this->exists()){
-            throw new \DomainException("File '{$this->value}' does not exist");
+        if(null === $this->fullPath) {
+            throw new \DomainException('File path not set.');
         }
-        return $this->value;
+        if(!$this->exists()){
+            throw new \DomainException("File '{$this->fullPath}' does not exist");
+        }
+        return $this->fullPath;
     }
     public function exists(): bool
     {
-        return file_exists($this->value);
+        return file_exists($this->fullPath);
     }
 }

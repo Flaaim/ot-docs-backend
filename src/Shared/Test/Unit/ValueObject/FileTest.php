@@ -11,20 +11,36 @@ class FileTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $fileName = $this->createFile();
-        $file = new File($fileName, new TemplatePath(sys_get_temp_dir()));
+        $file = new File($name = 'file.txt');
 
-        $this->assertEquals('/tmp/file.txt', $file->getPath());
-        $this->assertTrue($file->exists());
-
-        $this->clearTempDir();
+        self::assertEquals($name,  $file->getValue());
+        self::assertNull($file->getFullPath());
     }
-
-    #[DataProvider('fileNameProvider')]
-    public function testTrimSlash($file, $root, $expected): void
+    public function testEmpty(): void
     {
-        $file = new File($file, new TemplatePath($root));
-        $this->assertEquals($expected, $file->getPath());
+        $this->expectException(\InvalidArgumentException::class);
+        new File('');
+    }
+    public function testTrimName(): void
+    {
+        $name = '/file.txt';
+        $file = new File($name);
+        $this->assertEquals('file.txt', $file->getValue());
+    }
+    public function testMergePaths(): void
+    {
+        $file = new File('file.txt');
+        $root = new TemplatePath(sys_get_temp_dir());
+        $file->mergePaths($root);
+        self::assertEquals('/tmp/file.txt', $file->getFullPath());
+    }
+    #[DataProvider('fileNameProvider')]
+    public function testPaths($name, $root, $expected): void
+    {
+        $file = new File($name);
+        $file->mergePaths(new TemplatePath($root));
+
+        $this->assertEquals($expected, $file->getFullPath());
     }
 
     public static function fileNameProvider(): array
@@ -34,17 +50,41 @@ class FileTest extends TestCase
           ['/file.txt', '/tmp//', '/tmp/file.txt'],
           ['/file.txt/', '/tmp//', '/tmp/file.txt'],
           ['//file.txt/', 'tmp', '/tmp/file.txt'],
+          ['/safety/file.txt/', '/tmp', '/tmp/safety/file.txt'],
         ];
     }
-    public function testEmpty(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        new File('', new TemplatePath(sys_get_temp_dir()));
-    }
 
-    private function createFile(): string
+    public function testFileExists(): void
     {
-        $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'file.txt';
+        $name = $this->createFile('file.txt');
+        $file = new File($name);
+        $file->mergePaths(new TemplatePath(sys_get_temp_dir()));
+        self::assertTrue($file->exists());
+
+        $this->clearTempDir();
+    }
+    public function testGetFile(): void
+    {
+        $name = $this->createFile('file.txt');
+        $file = new File($name);
+        $file->mergePaths(new TemplatePath(sys_get_temp_dir()));
+
+        self::assertEquals('/tmp/file.txt', $file->getFile());
+        $this->clearTempDir();
+    }
+    public function testNotExists(): void
+    {
+        $file = new File('file.txt');
+
+        self::assertFalse($file->exists());
+
+        self::expectException(\DomainException::class);
+        self::expectExceptionMessage('File path not set.');
+        $file->getFile();
+    }
+    private function createFile(string $name): string
+    {
+        $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $name;
         file_put_contents($path, 'some_content');
         return basename($path);
     }

@@ -2,27 +2,21 @@
 
 namespace App\Shared\Domain\ValueObject;
 
-use App\Shared\Domain\Service\Template\TemplatePath;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
 class FileType extends StringType
 {
-    private static TemplatePath $path;
-    public static function appendPath(TemplatePath $path): void
-    {
-        self::$path = $path;
-    }
     public const NAME = 'file';
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
-        return $value instanceof File ? $value->getPath() : $value;
+        return $value instanceof File ? $value->getValue() : $value;
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?File
     {
-        return !empty($value) ? new File((string)$value, self::$path) : null;
+        return !empty($value) ? new File((string)$value) : null;
     }
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
