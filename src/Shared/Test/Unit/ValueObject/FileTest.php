@@ -76,11 +76,16 @@ class FileTest extends TestCase
     {
         $file = new File('file.txt');
 
-        self::assertFalse($file->exists());
-
         self::expectException(\DomainException::class);
         self::expectExceptionMessage('File path not set.');
         $file->getFile();
+    }
+    public function testPathSetNotExists(): void
+    {
+        $file = new File('file.txt');
+        $file->mergePaths(new TemplatePath(sys_get_temp_dir()));
+
+        self::assertFalse($file->exists());
     }
     private function createFile(string $name): string
     {

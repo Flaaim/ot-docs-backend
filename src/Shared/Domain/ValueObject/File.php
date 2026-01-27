@@ -39,6 +39,9 @@ class File
     }
     public function exists(): bool
     {
+        if(null === $this->fullPath) {
+            throw new \DomainException('File path not set.');
+        }
         return file_exists($this->fullPath);
     }
 }
