@@ -4,6 +4,7 @@ namespace App\Cart\Test\Builder;
 
 use App\Cart\Entity\CartItem;
 use App\Product\Entity\Currency;
+use App\Shared\Domain\Service\Template\TemplatePath;
 use App\Shared\Domain\ValueObject\File;
 use App\Shared\Domain\ValueObject\Id;
 use App\Shared\Domain\ValueObject\Price;

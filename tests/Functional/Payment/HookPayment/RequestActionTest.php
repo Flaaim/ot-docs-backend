@@ -2,8 +2,6 @@
 
 namespace Test\Functional\Payment\HookPayment;
 
-use App\Http\JsonResponse;
-use App\Payment\Command\HookPayment\Handler;
 use Test\Functional\Json;
 use Test\Functional\WebTestCase;
 

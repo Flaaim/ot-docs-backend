@@ -3,13 +3,14 @@
 namespace App\Command;
 
 use App\Payment\Entity\Email;
-use App\Payment\Service\Delivery\FormDelivery\ProductSender;
+use App\Payment\Service\Delivery\Sender;
 use App\Product\Entity\Currency;
 use App\Product\Entity\Product;
 use App\Shared\Domain\Service\Template\TemplatePath;
 use App\Shared\Domain\ValueObject\File;
 use App\Shared\Domain\ValueObject\Id;
 use App\Shared\Domain\ValueObject\Price;
+use App\Shared\Domain\ValueObject\Recipient;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,24 +36,12 @@ class ProductSendCommand extends Command
         try {
             $container = require __DIR__ . '/../../config/container.php';
 
-            $productSender = new ProductSender(
+            $productSender = new Sender(
                 $container->get(MailerInterface::class),
-                new TemplatePath(sys_get_temp_dir()),
                 $container->get(Environment::class),
                 $this->logger
             );
-            $tempFile = tempnam(sys_get_temp_dir(), 'template');
-            $productSender->send(
-                new Email('test@app.ru'),
-                new Product(
-                    Id::generate(),
-                    'Образцы документов СИЗ',
-                    new Price(450.00, new Currency('RUB')),
-                    new File(basename($tempFile)),
-                    '1',
-                    '161'
-                ),
-            );
+            $productSender->send(new Recipient(new Email('some@email.ru'), 'Проверка письма'));
             return self::SUCCESS;
         } catch (TransportExceptionInterface $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');

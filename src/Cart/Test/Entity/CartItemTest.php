@@ -21,7 +21,7 @@ class CartItemTest extends TestCase
         self::assertEquals('ОТ-ПР', $cartItem->getSku());
         self::assertEquals(
             'safety/orders/prikaz-o-sozdaniy.docx',
-            $cartItem->getFile()->getPath()
+            $cartItem->getFile()->getValue()
         );
     }
 }

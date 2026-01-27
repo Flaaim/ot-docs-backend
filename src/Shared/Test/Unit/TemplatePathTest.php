@@ -3,8 +3,10 @@
 namespace App\Shared\Test\Unit;
 
 use App\Shared\Domain\Service\Template\TemplatePath;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(TemplatePath::class)]
 class TemplatePathTest extends TestCase
 {
     public function testSuccess(): void

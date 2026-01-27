@@ -20,7 +20,7 @@ class Product
     private string $sku;
     #[ORM\Column(type: 'price')]
     private Price $price;
-    #[ORM\Column(type: 'file')]
+    #[ORM\Column(type:'file')]
     private File $file;
     public function __construct(Id $id, string $name, Price $price, File $file, string $sku)
     {

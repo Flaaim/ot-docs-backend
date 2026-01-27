@@ -14,6 +14,7 @@ class CartItem
     #[ORM\ManyToOne(targetEntity: Cart::class, inversedBy: 'items')]
     #[ORM\JoinColumn(name: 'cart_id', referencedColumnName: 'id', nullable: false)]
     private Cart $cart;
+
     public function __construct(
         #[ORM\Id]
         #[ORM\Column(type: 'id', unique: true)]
@@ -25,7 +26,7 @@ class CartItem
         #[ORM\Column(type: 'string', length: 25)]
         private string $sku,
         #[ORM\Column(type: 'file')]
-        private File $file,
+        private File $file
     ) {
     }
     public function getProductId(): Id

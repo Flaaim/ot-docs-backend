@@ -7,18 +7,12 @@ use App\Payment\Command\HookPayment\Handler as HookPaymentHandler;
 use App\Payment\Command\HookPayment\SendProduct\Handler;
 use App\Payment\Entity\PaymentRepository;
 use App\Payment\Service\Delivery\DeliveryFactory;
-use App\Payment\Service\Delivery\DeliveryService;
-use App\Payment\Service\Delivery\FormDelivery\ProductSender;
-use App\Product\Entity\ProductRepository;
 use App\Shared\Domain\Service\Payment\WebhookParser\YookassaWebhookParser;
-use App\Shared\Domain\Service\Template\TemplatePath;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\Mailer\MailerInterface;
 use Test\Functional\Payment\TestPaymentProvider;
-use Twig\Environment;
 
 return [
     HookPaymentHandler::class => function (ContainerInterface $c) {

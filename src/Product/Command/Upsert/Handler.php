@@ -23,7 +23,6 @@ class Handler
         $product = $this->products->findBySku($command->sku);
 
         if ($product) {
-            /** @var Product $product */
             $product->update(
                 $command->name,
                 new Price($command->amount, new Currency('RUB')),

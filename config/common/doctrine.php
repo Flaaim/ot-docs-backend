@@ -27,9 +27,6 @@ return [
 
         $config->setNamingStrategy(new UnderscoreNamingStrategy());
 
-        $templatePath = $container->get(TemplatePath::class);
-        FileType::appendPath($templatePath);
-
         foreach ($settings['types'] as $name => $class) {
             if (!Type::hasType($name)) {
                 Type::addType($name, $class);

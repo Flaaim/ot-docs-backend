@@ -22,7 +22,7 @@ class ProductBuilder
         $this->name = "Оказание первой помощи пострадавшим";
         $this->sku = '201';
         $this->price = new Price(350.00, new Currency('RUB'));
-        $this->file = new File("201/ot201.18.docx");
+        $this->file = new File("/file.txt");
 
     }
     public function withId(Id $id): self
