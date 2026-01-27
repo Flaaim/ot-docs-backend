@@ -2,10 +2,9 @@
 
 namespace App\Payment\Service\Delivery;
 
-use App\Payment\Entity\Email;
-use Illuminate\Contracts\Mail\Attachable;
+use App\Shared\Domain\ValueObject\Recipient;
 
 interface SenderInterface
 {
-    public function send(Email $email, Attachable $data): void;
+    public function send(Recipient $recipient): void;
 }
