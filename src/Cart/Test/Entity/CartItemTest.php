@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Cart\Test\Entity;
+use App\Cart\Entity\CartItem;
 use App\Cart\Test\Builder\CartItemBuilder;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-
+#[CoversClass(CartItem::class)]
 class CartItemTest extends TestCase
 {
     public function testSuccess(): void
@@ -19,7 +21,7 @@ class CartItemTest extends TestCase
         self::assertEquals('ОТ-ПР', $cartItem->getSku());
         self::assertEquals(
             'safety/orders/prikaz-o-sozdaniy.docx',
-            $cartItem->getFile()->getPathToFile()
+            $cartItem->getFile()->getPath()
         );
     }
 }

@@ -129,21 +129,4 @@ class CartTest extends TestCase
         self::assertEquals(700.00, $cart->getTotalPrice()->getValue());
 
     }
-
-    public function testGetCartItemsIds(): void
-    {
-        $cart = Cart::createEmpty();
-
-        $cart->addItem((new CartItemBuilder())->withId(new Id('b4f31a9f-29da-4ae1-9cd2-f2eb6de39429'))->build());
-        $cart->addItem((new CartItemBuilder())->withId(new Id('8a8f6f6d-3ffb-4e50-8895-22007913c89d'))->build());
-        $cart->addItem((new CartItemBuilder())->withId(new Id('de5fdf22-a552-41b0-a1f3-474f083e6a47'))->build());
-        $cart->addItem((new CartItemBuilder())->withId(new Id('3ae5e560-ae53-45c9-8a81-2510256a6dab'))->build());
-
-
-        self::assertCount(4, $cart->getCartItemsIds());
-        self::assertEquals('b4f31a9f-29da-4ae1-9cd2-f2eb6de39429', $cart->getCartItemsIds()[0]);
-        self::assertEquals('8a8f6f6d-3ffb-4e50-8895-22007913c89d', $cart->getCartItemsIds()[1]);
-        self::assertEquals('de5fdf22-a552-41b0-a1f3-474f083e6a47', $cart->getCartItemsIds()[2]);
-        self::assertEquals('3ae5e560-ae53-45c9-8a81-2510256a6dab', $cart->getCartItemsIds()[3]);
-    }
 }

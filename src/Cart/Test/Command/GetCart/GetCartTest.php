@@ -12,8 +12,10 @@ use App\Product\Entity\Currency;
 use App\Shared\Domain\ValueObject\Id;
 use App\Shared\Domain\ValueObject\Price;
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Handler::class)]
 class GetCartTest extends TestCase
 {
 
