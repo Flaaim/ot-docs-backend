@@ -136,6 +136,10 @@ class SenderTest extends TestCase
     {
         $path = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $name;
         file_put_contents($path, 'some content');
-        return new EntityFile($name, new TemplatePath(sys_get_temp_dir()));
+
+        $file =  new EntityFile($name);
+        $file->mergePaths(new TemplatePath(sys_get_temp_dir()));
+        return $file;
+
     }
 }
