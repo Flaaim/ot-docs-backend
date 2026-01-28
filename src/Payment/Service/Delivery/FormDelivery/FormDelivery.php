@@ -20,14 +20,14 @@ class FormDelivery implements DeliveryInterface
     }
     public function deliver(PaymentWebhookDataInterface $paymentWebHookData): Recipient
     {
-        $productId = $paymentWebHookData->getMetadata('productId');
+        $productId = $paymentWebHookData->getMetadata('sourcePaymentId');
         $email = $paymentWebHookData->getMetadata('email');
 
         if (!$email || !$productId) {
-            throw new \DomainException('Missing required metadata in webhook');
+            throw new \DomainException('Missing required metadata in webhook.');
         }
         $product = $this->products->get(new Id($productId));
-        $email = new Email($paymentWebHookData->getMetadata('email'));
+        $email = new Email($email);
 
         $recipient = new Recipient($email, 'Успешная оплата на сайте через форму');
         $file = $product->getFile();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Functional\Payment\HookPayment;
+namespace Test\Functional\Payment\HookPayment\Form;
 
 use Test\Functional\Json;
 use Test\Functional\WebTestCase;
@@ -57,7 +57,7 @@ class RequestActionTest extends WebTestCase
                 'created_at' => '2025-10-13T05:19:27.347Z',
                 'captured_at' => '2025-10-13T05:20:00.000Z',
                 'metadata' => [
-                    'productId' => 'b38e76c0-ac23-4c48-85fd-975f32c8801f',
+                    'sourcePaymentId' => 'b38e76c0-ac23-4c48-85fd-975f32c8801f',
                     'cms_name' => 'yookassa_sdk_php_3',
                     'email' => 'test@app.ru',
                     'type' => 'form'
