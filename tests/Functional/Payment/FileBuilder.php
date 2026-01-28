@@ -25,12 +25,22 @@ class FileBuilder
         $this->fullPath = $fullPath;
         return $this;
     }
+    public function writeDownFile(): self
+    {
+        $pathToDir = dirname($this->fullPath. DIRECTORY_SEPARATOR . $this->value);
+        if(!is_dir($pathToDir)) {
+            mkdir($pathToDir);
+        }
+        file_put_contents($this->fullPath. DIRECTORY_SEPARATOR . $this->value, 'some_content');
+        return $this;
+    }
     public function build(): File
     {
         $file = new File($this->value);
+
         $file->mergePaths(new TemplatePath($this->fullPath));
 
-        file_put_contents($file->getFullPath(), 'some_content');
+        $this->writeDownFile();
 
         return $file;
     }
