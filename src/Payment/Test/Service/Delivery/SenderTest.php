@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Payment\Test\Service;
+namespace App\Payment\Test\Service\Delivery;
 
 use App\Payment\Entity\Email as UserEmail;
 use App\Payment\Service\Delivery\Sender;
