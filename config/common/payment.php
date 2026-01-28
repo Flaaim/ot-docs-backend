@@ -20,6 +20,7 @@ return [
     Factory::class => function (ContainerInterface $container) {
         return new Factory($container->get(Handler::class), [
             $container->get(CreatePaymentForm::class),
+            $container->get(CreatePaymentCart::class),
         ]);
     },
     Handler::class => function (ContainerInterface $container) {
