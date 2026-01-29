@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 
+use App\Payment\Service\Delivery\CartDelivery\CartDelivery;
 use App\Payment\Service\Delivery\DeliveryFactory;
 use App\Payment\Service\Delivery\FormDelivery\FormDelivery;
 use App\Payment\Service\Delivery\Sender;
@@ -19,7 +20,8 @@ return [
     DeliveryFactory::class => function (ContainerInterface $container) {
         return new DeliveryFactory(
             [
-                $container->get(FormDelivery::class)
+                $container->get(FormDelivery::class),
+                $container->get(CartDelivery::class),
             ],
             $container->get(Sender::class));
     },

@@ -3,7 +3,6 @@
 namespace App\Cart\Command\AddItem;
 
 use App\Cart\Command\CartAwareHandler;
-use App\Cart\Entity\Cart;
 use App\Cart\Entity\CartItem;
 use App\Cart\Entity\CartRepository;
 use App\Flusher;
